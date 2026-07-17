@@ -1,0 +1,56 @@
+{
+  "study": "Study 3: Number Patterns Analysis",
+  "total_white_ball_occurrences": 9835,
+  "unique_numbers": 69,
+  "hot_numbers": {
+    "top_10": {
+      "28": 175,
+      "23": 171,
+      "36": 171,
+      "21": 167,
+      "39": 167,
+      "32": 166,
+      "52": 165,
+      "59": 162,
+      "12": 160,
+      "27": 159
+    },
+    "hottest": 28,
+    "hottest_count": 175
+  },
+  "cold_numbers": {
+    "bottom_10": {
+      "61": 122,
+      "64": 121,
+      "63": 115,
+      "69": 114,
+      "62": 111,
+      "67": 101,
+      "66": 100,
+      "68": 97,
+      "60": 94,
+      "65": 88
+    },
+    "coldest": 65,
+    "coldest_count": 88
+  },
+  "even_odd_distribution": {
+    "even_count": 4829,
+    "odd_count": 5006,
+    "even_percentage": 49.1,
+    "odd_percentage": 50.9
+  },
+  "number_gaps": {
+    "average_gap": 11.12,
+    "median_gap": 9.0,
+    "min_gap": 1,
+    "max_gap": 55,
+    "std_dev": 9.03
+  },
+  "insights": [
+    "Hottest number: 28 (appeared 175 times)",
+    "Coldest number: 65 (appeared 88 times)",
+    "Even/Odd split: 49.1% even, 50.9% odd",
+    "Average gap between consecutive numbers in a drawing: 11.12"
+  ]
+}

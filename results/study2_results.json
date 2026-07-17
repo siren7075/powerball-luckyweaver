@@ -1,0 +1,38 @@
+{
+  "study": "Study 2: Consecutive Drawing Overlap Analysis",
+  "total_consecutive_pairs": 1966,
+  "average_overlap": 0.38,
+  "min_overlap": 0,
+  "max_overlap": 3,
+  "overlap_distribution": [
+    {
+      "Overlap": 0,
+      "Count": 1294,
+      "Probability": 65.82,
+      "Probability_Str": "65.82%"
+    },
+    {
+      "Overlap": 1,
+      "Count": 596,
+      "Probability": 30.32,
+      "Probability_Str": "30.32%"
+    },
+    {
+      "Overlap": 2,
+      "Count": 73,
+      "Probability": 3.71,
+      "Probability_Str": "3.71%"
+    },
+    {
+      "Overlap": 3,
+      "Count": 3,
+      "Probability": 0.15,
+      "Probability_Str": "0.15%"
+    }
+  ],
+  "insights": [
+    "Average overlap between consecutive drawings: 0.38 numbers",
+    "Most common overlap: 0 numbers (1294 times, 65.82%)",
+    "Probability of NO overlap (0 shared numbers): 65.82%"
+  ]
+}
