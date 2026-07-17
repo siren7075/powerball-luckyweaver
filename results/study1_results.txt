@@ -1,0 +1,8 @@
+POWERBALL STUDY 1: DUPLICATE DRAWING ANALYSIS
+============================================================
+
+Total number of drawings: 1967
+Number of duplicate drawings: 0
+Duplicate rate: 0.0%
+
+No identical duplicate drawings found in the dataset.
