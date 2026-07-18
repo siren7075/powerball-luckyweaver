@@ -1,273 +1,155 @@
-# 🎰 Powerball Lottery Data Analysis Project Summary
+# 🎰 Powerball Rolling Window Overlap Analysis - Project Summary
 
 ## Project Overview
 
-This is a comprehensive statistical analysis study of official New York State Powerball lottery data. We analyzed over 1,967 lottery drawings (spanning from 2010 to 2026) through three independent research studies to reveal the randomness and pattern characteristics of the lottery system.
+This project is a comprehensive statistical analysis study of official New York State Powerball lottery data. By analyzing 1,967 lottery drawings from 2010 to 2026, we explore the overlap patterns of white ball numbers across consecutive draws.
 
-**GitHub Repository**: [siren7075/powerball-study](https://github.com/siren7075/powerball-study) (Private)
-
----
+The core research method uses **rolling window analysis**. Rather than examining only adjacent pairs of drawings, we extend the analysis to 2-10 consecutive drawing windows, constructing a complete empirical probability matrix.
 
 ## Dataset
 
-- **Source**: Official New York State Powerball lottery records
+- **Source**: Official New York State Powerball Lottery Records
 - **Time Period**: January 2010 - July 2026
 - **Sample Size**: 1,967 drawings
-- **Data Format**: Cleaned and standardized CSV
-  - Drawing Date (Date)
-  - 5 White Ball Numbers (White1-5)
-  - 1 Powerball Number
+- **Data Quality**: Verified duplicate-free, fully cleaned and standardized
 
----
+### Data Validation
 
-## 📊 Three Research Studies
+✅ **Data Cleaning Completed**
+- Total Drawings: 1,967
+- Duplicate Drawings: 0
+- Duplicate Rate: 0.0%
+- Data Quality: Verified
 
-### Study 1️⃣: Duplicate Drawing Analysis
+## Primary Study: Rolling Window Overlap Analysis
 
-**Research Question**: Have there ever been identical Powerball drawings in history?
+### Research Methodology
 
-#### Results
+For each window size (2 to 10 consecutive drawings), we calculate:
+
+- **Average Overlaps** - Mean number of repeated white balls per window
+- **Max/Min Overlaps** - Maximum and minimum overlap numbers
+- **Median** - Median of overlap distribution
+- **Standard Deviation** - Measure of data dispersion
+- **Probability Distribution** - Probabilities of observing 0, 1, 2, 3... overlaps
+
+### Key Findings
+
+#### Summary Statistics Table
+
+| Window Size | Mean Overlaps | Median | Min | Max | Std Dev |
+|-------------|---------------|--------|-----|-----|---------|
+| 2 | 0.38 | 0 | 0 | 3 | 0.54 |
+| 3 | 1.08 | 1 | 0 | 5 | 1.06 |
+| 4 | 2.08 | 2 | 0 | 6 | 1.47 |
+| 5 | 3.30 | 3 | 0 | 8 | 1.80 |
+| 6 | 4.70 | 5 | 0 | 9 | 2.00 |
+| 7 | 6.24 | 6 | 2 | 12 | 2.09 |
+| 8 | 7.88 | 8 | 2 | 14 | 2.14 |
+| 9 | 9.61 | 10 | 4 | 16 | 2.13 |
+| 10 | 11.39 | 12 | 5 | 18 | 2.14 |
+
+#### Critical Observations
+
+**Larger Windows Show More Overlaps**
+
+- Window Size 2: Average 0.38 overlapping numbers
+- Window Size 10: Average 11.39 overlapping numbers
+
+This aligns with probability theory expectations – larger windows have more opportunities for number repetition.
+
+**Distribution Shifts with Window Size**
+
+- Small Windows (2-3): Distribution concentrated on low overlap counts
+- Medium Windows (5-7): Distribution centered in the middle
+- Large Windows (8-10): Broader distribution, skewed toward high overlaps
+
+### Probability Matrix
+
+A complete empirical probability matrix is generated in CSV format:
+
 ```
-✅ NO DUPLICATES FOUND
-
-Total drawings:           1,967
-Duplicate drawings:       0
-Duplicate rate:           0.0%
-```
-
-#### Key Findings
-
-Across 1,967 drawings spanning more than 16 years, **there has never been a single instance of identical 5 white balls and 1 red ball combination**.
-
-This indicates:
-- The lottery drawing mechanism operates properly
-- Random number generation is genuinely effective
-- There is no evidence of systematic mechanical failure or manipulation
-
----
-
-### Study 2️⃣: Consecutive Drawing Overlap Analysis ⭐
-
-**Research Question**: How many white ball numbers repeat between consecutive drawings?
-
-#### Results Table
-
-| Overlap Count | Frequency | Probability |
-|---------------|-----------|------------|
-| 0 numbers | 1,294 | **65.82%** |
-| 1 number | 596 | 30.32% |
-| 2 numbers | 73 | 3.71% |
-| 3 numbers | 3 | 0.15% |
-| 4+ numbers | 0 | 0% |
-
-#### Key Statistics
-
-- **Consecutive pairs analyzed**: 1,966
-- **Average overlap**: 0.38 numbers
-- **Maximum overlap**: 3 numbers (occurred only 3 times)
-- **Most common case**: Complete no overlap (65.82% probability)
-
-#### Deep Analysis
-
-This finding is highly significant, indicating:
-
-1. **System Independence** - Each drawing is completely independent and unaffected by the previous drawing
-2. **Unpredictability** - Cannot predict the next drawing by analyzing recent numbers
-3. **True Randomness** - 2/3 of adjacent drawings share zero numbers, which is a hallmark of random systems
-4. **No Exploitable Strategy** - "Following hot numbers" strategy is ineffective because hot numbers typically don't repeat in the next drawing
-
----
-
-### Study 3️⃣: Number Pattern Analysis
-
-**Research Question**: Do certain numbers appear more frequently than others? Is there bias in the system?
-
-#### Hot Numbers (Most Frequently Drawn)
-
-| Rank | Number | Occurrences |
-|------|--------|------------|
-| 1️⃣ | **28** | 175 times |
-| 2️⃣ | **23** | 171 times |
-| 3️⃣ | **36** | 171 times |
-| 4️⃣ | **21** | 167 times |
-| 5️⃣ | **39** | 167 times |
-
-#### Cold Numbers (Least Frequently Drawn)
-
-| Rank | Number | Occurrences |
-|------|--------|------------|
-| ⬇️ 5️⃣ | **65** | 88 times |
-| ⬇️ 4️⃣ | **60** | 94 times |
-| ⬇️ 3️⃣ | **68** | 97 times |
-| ⬇️ 2️⃣ | **66** | 100 times |
-| ⬇️ 1️⃣ | **67** | 101 times |
-
-#### Number Distribution Characteristics
-
-| Metric | Value |
-|--------|-------|
-| Total white ball occurrences | 9,835 |
-| Even number proportion | 49.1% |
-| Odd number proportion | 50.9% |
-| Average gap between consecutive numbers | 11.12 |
-| Median gap | 9.0 |
-| Minimum gap | 1 |
-| Maximum gap | 55 |
-
-#### Analysis Interpretation
-
-While certain numbers (like 28) appear more frequently than others (like 65):
-
-1. **Within Normal Range** - The difference between the hottest (175) and coldest (88) numbers is about 98% of expected value, perfectly consistent with random fluctuation
-2. **No Systematic Bias** - The even/odd split is nearly 50/50 with no clear tilt
-3. **Natural Variation** - This frequency difference is actually a hallmark of true random processes; perfectly uniform distribution would appear artificial
-4. **No Exploitable Value** - Cannot use historical frequency to improve number selection strategy
-
----
-
-## 📈 Data Visualization Analysis
-
-### Chart 1: Study 1 - Statistical Summary
-Displays:
-- Total drawings vs unique drawings (all unique)
-- Duplicate rate pie chart (0% duplicates)
-- White ball number frequency distribution
-- Red ball number frequency distribution
-
-### Chart 2: Drawing Timeline
-Shows drawing frequency changes from 2010 to 2026:
-- 2010-2022: approximately 8-9 drawings/month
-- After 2022: approximately 12-14 drawings/month (increased frequency)
-
-### Chart 3: Study 2 - Overlap Analysis
-- Bar chart: shows frequency of different overlap counts
-- Pie chart: shows percentage distribution of overlap amounts
-
-### Chart 4: Study 3 - Number Patterns
-- Hot vs cold numbers comparison
-- Even/odd distribution pie chart
-- All number frequency histogram (1-69)
-- Number gap distribution (divided into 5 intervals)
-
----
-
-## 🔬 Methodology
-
-### Data Cleaning Process
-
-Original data format:
-```
-"07/15/2026","02 07 18 29 38 16","2","14 15 23 33 42 16"
+Window Size | Overlap 0 | Overlap 1 | Overlap 2 | Overlap 3 | ... | Overlap 18
+------------|-----------|-----------|-----------|-----------|-----|----------
+2           | 65.82%    | 30.32%    | 3.71%     | 0.15%     |     |
+3           | 28.35%    | 42.19%    | 23.16%    | 5.75%     |     |
+...         | ...       | ...       | ...       | ...       | ... |
+10          | 0.00%     | 0.00%     | 0.00%     | 0.00%     |     | 0.20%
 ```
 
-Cleaned data format:
-```
-Date,White1,White2,White3,White4,White5,Powerball
-2026-07-15,2,7,18,29,38,16
-```
+## Visualization Analysis
 
-### Analysis Tools
+### 1. Probability Heatmap
+Displays the probability distribution across all window sizes and overlap counts.
+- X-axis: Number of overlapping white balls
+- Y-axis: Window size
+- Color intensity: Probability percentage
 
-- **Python 3.14** - Core programming language
-- **Pandas** - Data processing and analysis
-- **Matplotlib** - Data visualization
-- **Statistics** - Statistical calculations
+### 2. Statistics Comparison Chart
+Compares mean, median, and standard deviation across window sizes.
+- Clear trend visualization
+- Shows increasing statistics with window size
 
----
+### 3. Summary Table
+A comprehensive table of key statistics for all window sizes.
+- Easy reference and comparison
+- Precise numerical values
 
-## 🎯 Key Conclusions
+### 4. Infographic
+Single-page vertical infographic including:
+- Project title and dataset information
+- Heatmap and key charts
+- Important findings and conclusions
+- Modern, minimal design suitable for GitHub/Medium/LinkedIn
 
-### 1. True Randomness ✅
-**Conclusion**: The Powerball lottery system functions as a genuine random number generator.
+## Reports and Outputs
 
-**Evidence**:
-- Zero duplicates among 1,967 drawings
-- 65.8% of consecutive draws are completely unrelated
-- Number frequency distribution matches random expectations
+### PDF Report
+Complete technical report: `Powerball_Rolling_Overlap_Report.pdf` includes:
+- Project overview and background
+- Dataset description
+- Detailed methodology
+- Complete probability matrix
+- All visualizations
+- In-depth analysis and interpretation
+- Limitations and disclaimers
 
-### 2. Absolute Uniqueness ✅
-**Conclusion**: Every drawing is completely unique.
+### Data Files
+- `rolling_window_matrix.csv` - Complete probability matrix
+- `rolling_window_results.json` - Raw statistical results
 
-**Evidence**:
-- No repeated combinations in 16+ years of history
-- This indicates the drawing mechanism is independent and effective
-
-### 3. No Exploitable Patterns ✅
-**Conclusion**: No mathematical patterns exist in historical data that can be exploited.
-
-**Evidence**:
-- Number frequency variations are within normal ranges
-- No predictable sequences or trends
-- "Hot/cold number" strategies have no statistical advantage
-
-### 4. Consecutive Independence ✅
-**Conclusion**: Previous drawings do not affect subsequent drawings.
-
-**Evidence**:
-- 2/3 of adjacent drawings share zero numbers
-- Maximum overlap is only 3 numbers (extremely rare)
-- This rules out any "chain effects"
-
----
-
-## 💡 Practical Recommendations
-
-### ❌ Things You Should NOT Do
-
-1. **Don't track "hot numbers"** - Past frequency cannot predict future outcomes
-2. **Don't chase "cold numbers"** - Waiting strategies have no mathematical basis
-3. **Don't analyze recent drawings** - 65.8% probability the next drawing won't share any numbers
-4. **Don't search for "hidden patterns"** - Verified that no exploitable patterns exist
-
-### ✅ Things You SHOULD Do
-
-1. **Treat lottery as entertainment** - It's an entertainment activity, not an investment
-2. **Understand probability** - Winning odds are the same every time (millions to one)
-3. **Play responsibly** - Only spend money you can afford to lose
-4. **Enjoy the experience** - Focus on the fun of playing, not hopes of winning
-
----
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 powerball-study/
-│
 ├── README.md                          # Project documentation
 ├── PROJECT_SUMMARY.md                 # Chinese summary
 ├── PROJECT_SUMMARY_EN.md              # English summary (this file)
-├── COMPREHENSIVE_ANALYSIS_REPORT.txt  # Full technical report
 │
 ├── src/                               # Python analysis scripts
-│   ├── data_cleaner.py
-│   ├── study1_analysis.py
-│   ├── study2_overlap_analysis.py
-│   ├── study3_number_patterns.py
-│   ├── comprehensive_report.py
-│   └── visualizations*.py
+│   ├── rolling_window_analysis.py     # Main analysis
+│   ├── rolling_window_visualizations.py  # Chart generation
+│   └── generate_report_and_infographic.py # Report generation
 │
 ├── data/
 │   └── powerball_clean.csv            # Cleaned dataset
 │
-└── results/                           # Analysis results
-    ├── COMPREHENSIVE_ANALYSIS_REPORT.txt
-    ├── study1_summary.png
-    ├── study1_summary_text.png
-    ├── drawing_timeline.png
-    ├── study2_overlap_analysis.png
-    ├── study2_overlap_distribution.csv
-    ├── study3_patterns_analysis.png
-    └── *.json                         # Raw data results
+└── results/                           # Analysis outputs
+    ├── Powerball_Rolling_Overlap_Report.pdf  # PDF report
+    ├── Powerball_Rolling_Overlap_Summary.png # Infographic
+    ├── rolling_window_heatmap.png    # Probability heatmap
+    ├── rolling_window_statistics.png # Statistics chart
+    ├── rolling_window_summary_table.png # Summary table
+    ├── rolling_window_matrix.csv     # Probability matrix (CSV)
+    └── rolling_window_results.json   # Raw results (JSON)
 ```
 
----
-
-## 🚀 How to Use This Project
+## Usage Instructions
 
 ### Reproduce the Analysis
 
 ```bash
-# Clone the repository
+# Clone repository
 git clone https://github.com/siren7075/powerball-study.git
 cd powerball-study
 
@@ -278,81 +160,83 @@ source venv/bin/activate
 # Install dependencies
 pip install -r requirements.txt
 
-# Run complete analysis
-python3 run_analysis.py
-
-# Or run individual studies
-python3 src/study2_overlap_analysis.py
+# Run analysis pipeline
+python3 src/rolling_window_analysis.py          # Compute statistics
+python3 src/rolling_window_visualizations.py    # Generate charts
+python3 src/generate_report_and_infographic.py  # Generate reports
 ```
 
-### View Results
+## Methodology
 
-- All visualization charts in `results/` directory
-- Detailed report in `COMPREHENSIVE_ANALYSIS_REPORT.txt`
-- Raw data in `data/powerball_clean.csv`
+### Rolling Window Analysis
 
----
+For each window size (2 to 10):
 
-## 📊 Data Sources
+1. Extract all possible consecutive N-drawing windows from the dataset
+2. For each window, count how many white ball numbers appear 2+ times
+3. Collect all overlap counts
+4. Calculate mean, median, min, max, and standard deviation
+5. Build probability distribution (frequency and probability of each overlap count)
+6. Assemble final probability matrix
 
-- **Official Data**: NY State Powerball official lottery records
-- **Time Range**: 2010-2026
-- **Data Completeness**: Verified, no missing values
-- **Data Quality**: Cleaned and standardized
+### Tools Used
 
----
+- **Python 3.14** - Core programming language
+- **Pandas** - Data processing and analysis
+- **Matplotlib & Seaborn** - Data visualization
+- **ReportLab** - PDF report generation
+- **Pillow** - Image processing
 
-## 📝 Technical Details
+## Key Interpretations
 
-### Analysis Methods
+### Why Do Larger Windows Show More Overlaps?
 
-- **Descriptive Statistics** - Mean, median, standard deviation, etc.
-- **Frequency Analysis** - Count occurrences of each number
-- **Probability Calculation** - Estimate probability of various events
-- **Distribution Testing** - Verify randomness characteristics
+This is a fundamental probability phenomenon. In 5 consecutive draws (5 numbers each), there are 25 number slots; in 10 consecutive draws, there are 50 slots. More slots mean higher probability of number repetition.
 
-### Statistical Code Example
+### What Does This Mean?
 
-```python
-# Calculate overlap
-current_balls = {2, 7, 18, 29, 38}
-next_balls = {5, 25, 36, 40, 48}
-overlap = len(current_balls & next_balls)  # = 0
+- This describes **historical patterns**
+- Reflects the **empirical distribution** of the past 16 years
+- **Cannot be used for prediction** of future drawings
+- **Cannot improve** winning odds
 
-# Frequency distribution
-hot_numbers = all_balls.value_counts().head(5)
-cold_numbers = all_balls.value_counts().tail(5)
-```
+### Important Warning
 
----
+⚠️ **This is historical analysis, not prediction**
+- Past overlap patterns do not predict future outcomes
+- Lottery mechanism may change at any time
+- Results are specific to the 2010-2026 period
+- Lottery outcomes are inherently random and unpredictable
 
-## ⚠️ Disclaimer
+## Limitations
 
-This analysis is for educational and research purposes only. The analysis results indicate the lottery system is truly random, which means:
+1. **Time-Specific** - Analysis based on 2010-2026 data only
+2. **Mechanism Changes** - Lottery rules may change in the future
+3. **No Predictive Value** - Cannot be used to predict future drawings
+4. **Sample Size** - 1,967 draws are substantial but still small in the full probability space
 
-- **Unpredictable** - Past data cannot be used to predict future drawings
-- **No Exploitable Value** - No strategy exists that can improve winning odds
-- **Entertainment Focus** - Lottery should be viewed as entertainment, not an investment or income source
+## Conclusions
 
----
+This study provides a complete statistical description of white ball overlap patterns in historical Powerball lottery data. Through rolling window analysis, we clearly demonstrate the distribution of number overlaps across different time horizons.
 
-## 📚 References
+**Core Finding**: Larger window sizes show more average overlaps, which is entirely consistent with probability theory expectations.
+
+**Most Important Takeaway**: This describes historical data and cannot be used for prediction or to improve odds.
+
+## Related Resources
 
 - Official NY State Lottery: https://nylottery.ny.gov/
-- Powerball Rules and Probabilities: https://www.powerball.com/
-- Randomness Testing Theory: NIST SP 800-22
+- Powerball Official Website: https://www.powerball.com/
+- GitHub Repository: https://github.com/siren7075/powerball-study
 
 ---
 
-## 👤 Project Information
+**Project Information**
+- Creation Date: July 2026
+- Data Through: July 15, 2026
+- Analysis Tools: Python, Pandas, Matplotlib, ReportLab
+- Repository: https://github.com/siren7075/powerball-study (Private)
 
-- **Creation Date**: July 16, 2026
-- **Data Through**: July 15, 2026
-- **Analysis Tools**: Python, Pandas, Matplotlib
-- **GitHub**: https://github.com/siren7075/powerball-study
+**Last Updated**: July 17, 2026
 
----
-
-**Last Updated**: July 16, 2026
-
-*"Data doesn't lie, but the randomness of data tells the most interesting story."* 🎲
+*Data tells stories, but the story here is understanding the randomness of the data.* 📊

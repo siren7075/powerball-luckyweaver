@@ -1,0 +1,501 @@
+{
+  "2": {
+    "window_size": 2,
+    "total_windows": 1966,
+    "mean": 0.3819938962360122,
+    "median": 0.0,
+    "min": 0,
+    "max": 3,
+    "std": 0.5652368240902275,
+    "distribution": {
+      "0": {
+        "count": 1294,
+        "probability": 65.82
+      },
+      "1": {
+        "count": 596,
+        "probability": 30.32
+      },
+      "2": {
+        "count": 73,
+        "probability": 3.71
+      },
+      "3": {
+        "count": 3,
+        "probability": 0.15
+      }
+    }
+  },
+  "3": {
+    "window_size": 3,
+    "total_windows": 1965,
+    "mean": 1.0804071246819338,
+    "median": 1.0,
+    "min": 0,
+    "max": 5,
+    "std": 0.8902341728980916,
+    "distribution": {
+      "0": {
+        "count": 557,
+        "probability": 28.35
+      },
+      "1": {
+        "count": 829,
+        "probability": 42.19
+      },
+      "2": {
+        "count": 455,
+        "probability": 23.16
+      },
+      "3": {
+        "count": 113,
+        "probability": 5.75
+      },
+      "4": {
+        "count": 10,
+        "probability": 0.51
+      },
+      "5": {
+        "count": 1,
+        "probability": 0.05
+      }
+    }
+  },
+  "4": {
+    "window_size": 4,
+    "total_windows": 1964,
+    "mean": 2.077902240325866,
+    "median": 2.0,
+    "min": 0,
+    "max": 6,
+    "std": 1.164014262924786,
+    "distribution": {
+      "0": {
+        "count": 156,
+        "probability": 7.94
+      },
+      "1": {
+        "count": 475,
+        "probability": 24.19
+      },
+      "2": {
+        "count": 658,
+        "probability": 33.5
+      },
+      "3": {
+        "count": 457,
+        "probability": 23.27
+      },
+      "4": {
+        "count": 176,
+        "probability": 8.96
+      },
+      "5": {
+        "count": 37,
+        "probability": 1.88
+      },
+      "6": {
+        "count": 5,
+        "probability": 0.25
+      }
+    }
+  },
+  "5": {
+    "window_size": 5,
+    "total_windows": 1963,
+    "mean": 3.303107488537952,
+    "median": 3.0,
+    "min": 0,
+    "max": 8,
+    "std": 1.370055095612105,
+    "distribution": {
+      "0": {
+        "count": 26,
+        "probability": 1.32
+      },
+      "1": {
+        "count": 162,
+        "probability": 8.25
+      },
+      "2": {
+        "count": 372,
+        "probability": 18.95
+      },
+      "3": {
+        "count": 523,
+        "probability": 26.64
+      },
+      "4": {
+        "count": 510,
+        "probability": 25.98
+      },
+      "5": {
+        "count": 263,
+        "probability": 13.4
+      },
+      "6": {
+        "count": 96,
+        "probability": 4.89
+      },
+      "7": {
+        "count": 10,
+        "probability": 0.51
+      },
+      "8": {
+        "count": 1,
+        "probability": 0.05
+      }
+    }
+  },
+  "6": {
+    "window_size": 6,
+    "total_windows": 1962,
+    "mean": 4.699796126401631,
+    "median": 5.0,
+    "min": 0,
+    "max": 9,
+    "std": 1.52120249902605,
+    "distribution": {
+      "0": {
+        "count": 2,
+        "probability": 0.1
+      },
+      "1": {
+        "count": 20,
+        "probability": 1.02
+      },
+      "2": {
+        "count": 128,
+        "probability": 6.52
+      },
+      "3": {
+        "count": 276,
+        "probability": 14.07
+      },
+      "4": {
+        "count": 459,
+        "probability": 23.39
+      },
+      "5": {
+        "count": 481,
+        "probability": 24.52
+      },
+      "6": {
+        "count": 360,
+        "probability": 18.35
+      },
+      "7": {
+        "count": 176,
+        "probability": 8.97
+      },
+      "8": {
+        "count": 56,
+        "probability": 2.85
+      },
+      "9": {
+        "count": 4,
+        "probability": 0.2
+      }
+    }
+  },
+  "7": {
+    "window_size": 7,
+    "total_windows": 1961,
+    "mean": 6.243243243243243,
+    "median": 6.0,
+    "min": 2,
+    "max": 12,
+    "std": 1.63948179226121,
+    "distribution": {
+      "0": {
+        "count": 0,
+        "probability": 0.0
+      },
+      "1": {
+        "count": 0,
+        "probability": 0.0
+      },
+      "2": {
+        "count": 12,
+        "probability": 0.61
+      },
+      "3": {
+        "count": 80,
+        "probability": 4.08
+      },
+      "4": {
+        "count": 197,
+        "probability": 10.05
+      },
+      "5": {
+        "count": 360,
+        "probability": 18.36
+      },
+      "6": {
+        "count": 442,
+        "probability": 22.54
+      },
+      "7": {
+        "count": 424,
+        "probability": 21.62
+      },
+      "8": {
+        "count": 286,
+        "probability": 14.58
+      },
+      "9": {
+        "count": 125,
+        "probability": 6.37
+      },
+      "10": {
+        "count": 28,
+        "probability": 1.43
+      },
+      "11": {
+        "count": 6,
+        "probability": 0.31
+      },
+      "12": {
+        "count": 1,
+        "probability": 0.05
+      }
+    }
+  },
+  "8": {
+    "window_size": 8,
+    "total_windows": 1960,
+    "mean": 7.883673469387755,
+    "median": 8.0,
+    "min": 2,
+    "max": 14,
+    "std": 1.749267711366908,
+    "distribution": {
+      "0": {
+        "count": 0,
+        "probability": 0.0
+      },
+      "1": {
+        "count": 0,
+        "probability": 0.0
+      },
+      "2": {
+        "count": 1,
+        "probability": 0.05
+      },
+      "3": {
+        "count": 7,
+        "probability": 0.36
+      },
+      "4": {
+        "count": 38,
+        "probability": 1.94
+      },
+      "5": {
+        "count": 123,
+        "probability": 6.28
+      },
+      "6": {
+        "count": 246,
+        "probability": 12.55
+      },
+      "7": {
+        "count": 404,
+        "probability": 20.61
+      },
+      "8": {
+        "count": 432,
+        "probability": 22.04
+      },
+      "9": {
+        "count": 356,
+        "probability": 18.16
+      },
+      "10": {
+        "count": 227,
+        "probability": 11.58
+      },
+      "11": {
+        "count": 92,
+        "probability": 4.69
+      },
+      "12": {
+        "count": 27,
+        "probability": 1.38
+      },
+      "13": {
+        "count": 6,
+        "probability": 0.31
+      },
+      "14": {
+        "count": 1,
+        "probability": 0.05
+      }
+    }
+  },
+  "9": {
+    "window_size": 9,
+    "total_windows": 1959,
+    "mean": 9.607452782031649,
+    "median": 10.0,
+    "min": 4,
+    "max": 16,
+    "std": 1.8461957062288867,
+    "distribution": {
+      "0": {
+        "count": 0,
+        "probability": 0.0
+      },
+      "1": {
+        "count": 0,
+        "probability": 0.0
+      },
+      "2": {
+        "count": 0,
+        "probability": 0.0
+      },
+      "3": {
+        "count": 0,
+        "probability": 0.0
+      },
+      "4": {
+        "count": 6,
+        "probability": 0.31
+      },
+      "5": {
+        "count": 15,
+        "probability": 0.77
+      },
+      "6": {
+        "count": 64,
+        "probability": 3.27
+      },
+      "7": {
+        "count": 152,
+        "probability": 7.76
+      },
+      "8": {
+        "count": 304,
+        "probability": 15.52
+      },
+      "9": {
+        "count": 400,
+        "probability": 20.42
+      },
+      "10": {
+        "count": 413,
+        "probability": 21.08
+      },
+      "11": {
+        "count": 301,
+        "probability": 15.36
+      },
+      "12": {
+        "count": 188,
+        "probability": 9.6
+      },
+      "13": {
+        "count": 90,
+        "probability": 4.59
+      },
+      "14": {
+        "count": 16,
+        "probability": 0.82
+      },
+      "15": {
+        "count": 9,
+        "probability": 0.46
+      },
+      "16": {
+        "count": 1,
+        "probability": 0.05
+      }
+    }
+  },
+  "10": {
+    "window_size": 10,
+    "total_windows": 1958,
+    "mean": 11.394790602655771,
+    "median": 11.0,
+    "min": 5,
+    "max": 18,
+    "std": 1.9435110946293668,
+    "distribution": {
+      "0": {
+        "count": 0,
+        "probability": 0.0
+      },
+      "1": {
+        "count": 0,
+        "probability": 0.0
+      },
+      "2": {
+        "count": 0,
+        "probability": 0.0
+      },
+      "3": {
+        "count": 0,
+        "probability": 0.0
+      },
+      "4": {
+        "count": 0,
+        "probability": 0.0
+      },
+      "5": {
+        "count": 1,
+        "probability": 0.05
+      },
+      "6": {
+        "count": 9,
+        "probability": 0.46
+      },
+      "7": {
+        "count": 31,
+        "probability": 1.58
+      },
+      "8": {
+        "count": 81,
+        "probability": 4.14
+      },
+      "9": {
+        "count": 202,
+        "probability": 10.32
+      },
+      "10": {
+        "count": 313,
+        "probability": 15.99
+      },
+      "11": {
+        "count": 386,
+        "probability": 19.71
+      },
+      "12": {
+        "count": 389,
+        "probability": 19.87
+      },
+      "13": {
+        "count": 257,
+        "probability": 13.13
+      },
+      "14": {
+        "count": 190,
+        "probability": 9.7
+      },
+      "15": {
+        "count": 72,
+        "probability": 3.68
+      },
+      "16": {
+        "count": 19,
+        "probability": 0.97
+      },
+      "17": {
+        "count": 4,
+        "probability": 0.2
+      },
+      "18": {
+        "count": 4,
+        "probability": 0.2
+      }
+    }
+  }
+}
