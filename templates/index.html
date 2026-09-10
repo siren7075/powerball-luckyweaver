@@ -56,16 +56,19 @@
 
         .language-switch {
             display: flex;
-            gap: 10px;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
         .lang-btn {
-            padding: 8px 16px;
+            padding: 8px 14px;
             border: 2px solid #ddd;
             background: white;
             border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
+            font-size: 13px;
             transition: all 0.2s;
         }
 
@@ -372,7 +375,11 @@
 
             .language-switch {
                 width: 100%;
-                justify-content: flex-end;
+                justify-content: center;
+            }
+
+            .btn-generate {
+                grid-column: span 1;
             }
         }
     </style>
@@ -381,46 +388,64 @@
     <div class="container">
         <header>
             <div class="header-left">
-                <h1>🎰 <span lang="en">Powerball Generator</span><span lang="zh" style="display:none;">Powerball 号码生成器</span></h1>
+                <h1>🎰 <span lang="en">Powerball Generator</span><span lang="es" style="display:none;">Generador Powerball</span><span lang="pt" style="display:none;">Gerador Powerball</span><span lang="fr" style="display:none;">Générateur Powerball</span><span lang="zh" style="display:none;">Powerball 号码生成器</span></h1>
                 <p class="subtitle">
-                    <span lang="en">AI-powered suggestions based on recent draws - for entertainment only</span>
+                    <span lang="en">Smart suggestions based on recent draws - for entertainment only</span>
+                    <span lang="es" style="display:none;">Sugerencias inteligentes basadas en sorteos recientes - solo entretenimiento</span>
+                    <span lang="pt" style="display:none;">Sugestões inteligentes baseadas em sorteios recentes - apenas entretenimento</span>
+                    <span lang="fr" style="display:none;">Suggestions intelligentes basées sur les tirages récents - divertissement uniquement</span>
                     <span lang="zh" style="display:none;">基于最近开奖号码的智能建议系统 - 仅供娱乐</span>
                 </p>
             </div>
             <div class="language-switch">
                 <button class="lang-btn active" onclick="setLanguage('en')">English</button>
+                <button class="lang-btn" onclick="setLanguage('es')">Español</button>
+                <button class="lang-btn" onclick="setLanguage('pt')">Português</button>
+                <button class="lang-btn" onclick="setLanguage('fr')">Français</button>
                 <button class="lang-btn" onclick="setLanguage('zh')">中文</button>
             </div>
         </header>
 
-        <!-- 最新开奖 -->
+        <!-- Latest Draw -->
         <div class="latest-section">
             <div class="section-title">
                 <span lang="en">🎊 Latest Draw</span>
+                <span lang="es" style="display:none;">🎊 Último Sorteo</span>
+                <span lang="pt" style="display:none;">🎊 Último Sorteio</span>
+                <span lang="fr" style="display:none;">🎊 Dernier Tirage</span>
                 <span lang="zh" style="display:none;">🎊 最新开奖</span>
             </div>
             <div id="latestDisplay" style="text-align: center;">
-                <div style="padding: 20px; color: #999;"><span lang="en">Loading...</span><span lang="zh" style="display:none;">加载中...</span></div>
+                <div style="padding: 20px; color: #999;"><span lang="en">Loading...</span><span lang="es" style="display:none;">Cargando...</span><span lang="pt" style="display:none;">Carregando...</span><span lang="fr" style="display:none;">Chargement...</span><span lang="zh" style="display:none;">加载中...</span></div>
             </div>
         </div>
 
         <div class="two-column">
-            <!-- 控制面板 -->
+            <!-- Settings -->
             <div class="section">
                 <div class="section-title">
                     <span lang="en">⚙️ Settings</span>
+                    <span lang="es" style="display:none;">⚙️ Configuración</span>
+                    <span lang="pt" style="display:none;">⚙️ Configurações</span>
+                    <span lang="fr" style="display:none;">⚙️ Paramètres</span>
                     <span lang="zh" style="display:none;">⚙️ 参数设置</span>
                 </div>
 
                 <div class="control-group">
                     <div class="control-label">
                         <span lang="en">Decay Strength</span>
+                        <span lang="es" style="display:none;">Fuerza de Decaimiento</span>
+                        <span lang="pt" style="display:none;">Força de Decaimento</span>
+                        <span lang="fr" style="display:none;">Force de Décroissance</span>
                         <span lang="zh" style="display:none;">递减权重强度</span>
                         <span id="strengthValue">60%</span>
                     </div>
                     <input type="range" id="strengthSlider" class="slider" min="0" max="100" value="60" step="5">
                     <p style="font-size: 12px; color: #999; margin-top: 8px;">
                         <span lang="en">0% = no decay | 50% = medium | 100% = strong</span>
+                        <span lang="es" style="display:none;">0% = sin decaimiento | 50% = medio | 100% = fuerte</span>
+                        <span lang="pt" style="display:none;">0% = sem decaimento | 50% = médio | 100% = forte</span>
+                        <span lang="fr" style="display:none;">0% = pas de décroissance | 50% = moyen | 100% = fort</span>
                         <span lang="zh" style="display:none;">0% = 无递减 | 50% = 中等 | 100% = 强烈</span>
                     </p>
                 </div>
@@ -428,6 +453,9 @@
                 <div class="control-group">
                     <label class="control-label">
                         <span lang="en">Generate Sets</span>
+                        <span lang="es" style="display:none;">Generar Conjuntos</span>
+                        <span lang="pt" style="display:none;">Gerar Conjuntos</span>
+                        <span lang="fr" style="display:none;">Générer des Ensembles</span>
                         <span lang="zh" style="display:none;">生成组数</span>
                     </label>
                     <input type="number" id="countInput" class="count-input" min="1" max="20" value="5">
@@ -436,27 +464,36 @@
                 <div class="button-group">
                     <button class="btn-generate" onclick="generateNumbers()">
                         <span lang="en">🎲 Generate</span>
+                        <span lang="es" style="display:none;">🎲 Generar</span>
+                        <span lang="pt" style="display:none;">🎲 Gerar</span>
+                        <span lang="fr" style="display:none;">🎲 Générer</span>
                         <span lang="zh" style="display:none;">🎲 生成建议号码</span>
                     </button>
                     <button class="btn-secondary" onclick="generateNumbers()">
                         <span lang="en">🔄 Again</span>
+                        <span lang="es" style="display:none;">🔄 Otra Vez</span>
+                        <span lang="pt" style="display:none;">🔄 Novamente</span>
+                        <span lang="fr" style="display:none;">🔄 Encore</span>
                         <span lang="zh" style="display:none;">🔄 再来一次</span>
                     </button>
                 </div>
             </div>
 
-            <!-- 信息面板 -->
+            <!-- Analysis -->
             <div class="section">
                 <div class="section-title">
-                    <span lang="en">📊 Recent Period Analysis</span>
+                    <span lang="en">📊 Period Analysis</span>
+                    <span lang="es" style="display:none;">📊 Análisis de Períodos</span>
+                    <span lang="pt" style="display:none;">📊 Análise de Períodos</span>
+                    <span lang="fr" style="display:none;">📊 Analyse des Périodes</span>
                     <span lang="zh" style="display:none;">📊 最近期数分析</span>
                 </div>
                 <table class="period-table" id="periodTable">
                     <thead>
                         <tr>
-                            <th><span lang="en">Period</span><span lang="zh" style="display:none;">期数</span></th>
-                            <th><span lang="en">Date</span><span lang="zh" style="display:none;">日期</span></th>
-                            <th><span lang="en">Weight</span><span lang="zh" style="display:none;">权重</span></th>
+                            <th><span lang="en">Period</span><span lang="es" style="display:none;">Período</span><span lang="pt" style="display:none;">Período</span><span lang="fr" style="display:none;">Période</span><span lang="zh" style="display:none;">期数</span></th>
+                            <th><span lang="en">Date</span><span lang="es" style="display:none;">Fecha</span><span lang="pt" style="display:none;">Data</span><span lang="fr" style="display:none;">Date</span><span lang="zh" style="display:none;">日期</span></th>
+                            <th><span lang="en">Weight</span><span lang="es" style="display:none;">Peso</span><span lang="pt" style="display:none;">Peso</span><span lang="fr" style="display:none;">Poids</span><span lang="zh" style="display:none;">权重</span></th>
                         </tr>
                     </thead>
                     <tbody id="periodTableBody">
@@ -465,66 +502,85 @@
             </div>
         </div>
 
-        <!-- 生成结果 -->
+        <!-- Results -->
         <div class="section" id="resultsSection" style="display: none;">
             <div class="section-title">
                 <span lang="en">✨ Recommended Numbers</span>
+                <span lang="es" style="display:none;">✨ Números Recomendados</span>
+                <span lang="pt" style="display:none;">✨ Números Recomendados</span>
+                <span lang="fr" style="display:none;">✨ Nombres Recommandés</span>
                 <span lang="zh" style="display:none;">✨ 推荐号码</span>
             </div>
 
             <div class="loading" id="loading">
                 <div class="spinner"></div>
-                <p><span lang="en">Generating...</span><span lang="zh" style="display:none;">生成中...</span></p>
+                <p><span lang="en">Generating...</span><span lang="es" style="display:none;">Generando...</span><span lang="pt" style="display:none;">Gerando...</span><span lang="fr" style="display:none;">Génération...</span><span lang="zh" style="display:none;">生成中...</span></p>
             </div>
 
             <div id="resultContent" style="display: none;">
                 <div class="numbers-grid" id="resultsGrid"></div>
 
                 <div class="info-box">
-                    <strong>📊 <span lang="en">Statistics</span><span lang="zh" style="display:none;">统计信息</span></strong><br>
-                    <strong><span lang="en">Recent white balls:</span><span lang="zh" style="display:none;">最近白球：</span></strong>
+                    <strong>📊 <span lang="en">Statistics</span><span lang="es" style="display:none;">Estadísticas</span><span lang="pt" style="display:none;">Estatísticas</span><span lang="fr" style="display:none;">Statistiques</span><span lang="zh" style="display:none;">统计信息</span></strong><br>
+                    <strong><span lang="en">Recent white balls:</span><span lang="es" style="display:none;">Bolas blancas recientes:</span><span lang="pt" style="display:none;">Bolas brancas recentes:</span><span lang="fr" style="display:none;">Boules blanches récentes:</span><span lang="zh" style="display:none;">最近白球：</span></strong>
                     <div class="recent-numbers" id="recentWhiteDisplay"></div>
-                    <strong style="display: block; margin-top: 10px;"><span lang="en">Recent red balls:</span><span lang="zh" style="display:none;">最近红球：</span></strong>
+                    <strong style="display: block; margin-top: 10px;"><span lang="en">Recent red balls:</span><span lang="es" style="display:none;">Bolas rojas recientes:</span><span lang="pt" style="display:none;">Bolas vermelhas recentes:</span><span lang="fr" style="display:none;">Boules rouges récentes:</span><span lang="zh" style="display:none;">最近红球：</span></strong>
                     <div class="recent-numbers" id="recentRedDisplay"></div>
                 </div>
             </div>
         </div>
 
-        <!-- 页脚 -->
+        <!-- Footer -->
         <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px solid #e0e0e0;">
             <p style="font-size: 12px; color: #999;">
-                <span lang="en">💡 Tip: This is a recreational tool. Lottery results are completely random and predictions have no predictive power.</span>
+                <span lang="en">💡 Tip: Results are for fun. Lottery outcomes are random and unpredictable.</span>
+                <span lang="es" style="display:none;">💡 Consejo: Los resultados son para diversión. Los sorteos son aleatorios e impredecibles.</span>
+                <span lang="pt" style="display:none;">💡 Dica: Os resultados são para diversão. Os sorteios são aleatórios e imprevisíveis.</span>
+                <span lang="fr" style="display:none;">💡 Conseil: Les résultats sont amusants. Les loteries sont aléatoires et imprévisibles.</span>
                 <span lang="zh" style="display:none;">💡 提示：这仅是一个娱乐工具，彩票结果完全随机，号码建议不具有预测能力。</span>
             </p>
         </div>
     </div>
 
     <script>
-        // 语言切换
+        const translations = {
+            en: { lang: 'en', name: 'English' },
+            es: { lang: 'es', name: 'Español' },
+            pt: { lang: 'pt', name: 'Português' },
+            fr: { lang: 'fr', name: 'Français' },
+            zh: { lang: 'zh', name: '中文' }
+        };
+
         function setLanguage(lang) {
+            if (!translations[lang]) return;
+
             document.documentElement.lang = lang;
             document.querySelectorAll('[lang]').forEach(el => {
-                el.style.display = lang === el.getAttribute('lang') ? 'inline' : 'none';
+                el.style.display = el.getAttribute('lang') === lang ? 'inline' : 'none';
             });
+
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
             localStorage.setItem('language', lang);
             loadLatestDrawing();
         }
 
-        // 恢复语言设置
         const savedLang = localStorage.getItem('language') || 'en';
         window.addEventListener('load', () => {
-            setLanguage(savedLang);
-            document.querySelector(`.lang-btn:nth-child(${savedLang === 'en' ? 1 : 2})`).classList.add('active');
+            const lang = savedLang;
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[lang]').forEach(el => {
+                el.style.display = el.getAttribute('lang') === lang ? 'inline' : 'none';
+            });
+            const idx = Object.keys(translations).indexOf(lang) + 1;
+            document.querySelector(`.lang-btn:nth-child(${idx})`).classList.add('active');
+            loadLatestDrawing();
         });
 
-        // 更新强度显示
         document.getElementById('strengthSlider').addEventListener('input', function() {
             document.getElementById('strengthValue').textContent = this.value + '%';
         });
 
-        // 显示最新开奖
         async function loadLatestDrawing() {
             try {
                 const response = await fetch('/api/latest');
@@ -550,7 +606,6 @@
             document.getElementById('latestDisplay').innerHTML = html;
         }
 
-        // 生成号码
         async function generateNumbers() {
             const strength = document.getElementById('strengthSlider').value / 100;
             const count = parseInt(document.getElementById('countInput').value) || 5;
@@ -565,18 +620,11 @@
             try {
                 const response = await fetch('/api/generate', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        weight_strength: strength,
-                        periods: 5,
-                        count: count
-                    })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ weight_strength: strength, periods: 5, count: count })
                 });
 
                 const data = await response.json();
-
                 loading.style.display = 'none';
                 resultContent.style.display = 'block';
                 displayResults(data);
@@ -586,14 +634,13 @@
                     resultsSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 100);
             } catch (error) {
-                console.error('Error generating numbers:', error);
+                console.error('Error:', error);
                 loading.style.display = 'none';
-                resultContent.innerHTML = '<div style="color: red;">Error generating numbers. Please try again.</div>';
+                resultContent.innerHTML = '<div style="color: red;">Error generating numbers</div>';
             }
         }
 
         function displayResults(data) {
-            const lang = document.documentElement.lang;
             const grid = document.getElementById('resultsGrid');
             grid.innerHTML = data.numbers.map((combo, idx) => `
                 <div class="number-combo">
@@ -605,16 +652,13 @@
                 </div>
             `).join('');
 
-            // 显示最近号码
-            const recentWhiteHtml = data.recent_white.map(num =>
+            document.getElementById('recentWhiteDisplay').innerHTML = data.recent_white.map(num =>
                 `<div class="mini-ball white">${num}</div>`
             ).join('');
-            document.getElementById('recentWhiteDisplay').innerHTML = recentWhiteHtml;
 
-            const recentRedHtml = data.recent_red.map(num =>
+            document.getElementById('recentRedDisplay').innerHTML = data.recent_red.map(num =>
                 `<div class="mini-ball red">${num}</div>`
             ).join('');
-            document.getElementById('recentRedDisplay').innerHTML = recentRedHtml;
         }
 
         function updatePeriodTable(recentNumbers) {
@@ -628,7 +672,6 @@
             `).join('');
         }
 
-        // 页面加载
         loadLatestDrawing();
     </script>
 </body>
