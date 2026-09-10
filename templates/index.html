@@ -809,21 +809,24 @@
         }
 
         function switchTab(tab) {
-            // Hide all tabs
-            document.getElementById('generatorTab').style.display = 'none';
-            document.getElementById('studiesSection').style.display = 'none';
+            const generatorTab = document.getElementById('generatorTab');
+            const studiesSection = document.getElementById('studiesSection');
+            const buttons = document.querySelectorAll('.tab-btn');
 
-            // Remove active class from all buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-
-            // Show selected tab
             if (tab === 'generator') {
-                document.getElementById('generatorTab').style.display = 'block';
-                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                if (generatorTab) generatorTab.style.display = 'block';
+                if (studiesSection) studiesSection.style.display = 'none';
+                buttons.forEach((btn, idx) => {
+                    if (idx === 0) btn.classList.add('active');
+                    else btn.classList.remove('active');
+                });
             } else if (tab === 'studies') {
-                document.getElementById('studiesSection').style.display = 'block';
-                document.querySelectorAll('.tab-btn')[1].classList.add('active');
-                loadStudies();
+                if (generatorTab) generatorTab.style.display = 'none';
+                if (studiesSection) studiesSection.style.display = 'block';
+                buttons.forEach((btn, idx) => {
+                    if (idx === 1) btn.classList.add('active');
+                    else btn.classList.remove('active');
+                });
             }
         }
 
