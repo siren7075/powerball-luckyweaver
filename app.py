@@ -35,12 +35,14 @@ def stats():
 @app.route('/api/studies', methods=['GET'])
 def studies():
     import json
+    import os
     try:
-        with open('results/data/rolling_window_results.json') as f:
+        path = os.path.join(os.path.dirname(__file__), 'results/data/rolling_window_results.json')
+        with open(path) as f:
             data = json.load(f)
         return jsonify(data)
-    except:
-        return jsonify({'error': 'Studies data not available'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/api/overlap-matrix', methods=['GET'])
 def overlap_matrix():
