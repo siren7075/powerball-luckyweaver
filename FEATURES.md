@@ -1,4 +1,4 @@
-# 🎰 Interactive Powerball Generator - Features
+# 🎰 LuckyWeaver - Intelligent Number Generator Features
 
 ## Web Application Highlights
 
