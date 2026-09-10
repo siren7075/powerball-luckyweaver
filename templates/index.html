@@ -637,14 +637,33 @@
             </div>
 
             <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
-                <h4 style="color: #333; margin-bottom: 15px;">Rolling Window Analysis</h4>
-                <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
-                    Analysis of white ball overlap patterns across consecutive draws using rolling windows of 2-10 draws.
+                <h4 style="color: #333; margin-bottom: 15px;">Rolling Window Overlap Analysis</h4>
+                <p style="color: #666; font-size: 13px; margin-bottom: 20px;">
+                    Analysis of 1,967 Powerball draws (2010-2026). Shows how many white ball numbers repeat when looking at rolling windows of 2-10 consecutive draws.
                 </p>
 
-                <div id="studiesContent" style="color: #555; font-size: 14px; line-height: 1.6;">
-                    <div style="text-align: center; padding: 20px; color: #999;">Loading...</div>
-                </div>
+                <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                <tr style="background: #f0f0f0; border-bottom: 2px solid #667eea;">
+                <th style="padding: 12px; text-align: left;">Window</th>
+                <th style="padding: 12px; text-align: left;">Mean Overlap</th>
+                <th style="padding: 12px; text-align: left;">Median</th>
+                <th style="padding: 12px; text-align: left;">Max</th>
+                <th style="padding: 12px; text-align: left;">Std Dev</th>
+                </tr>
+                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">2 draws</td><td style="padding: 12px;">0.38</td><td style="padding: 12px;">0.0</td><td style="padding: 12px;">3</td><td style="padding: 12px;">0.57</td></tr>
+                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">3 draws</td><td style="padding: 12px;">1.08</td><td style="padding: 12px;">1.0</td><td style="padding: 12px;">5</td><td style="padding: 12px;">0.89</td></tr>
+                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">4 draws</td><td style="padding: 12px;">2.08</td><td style="padding: 12px;">2.0</td><td style="padding: 12px;">6</td><td style="padding: 12px;">1.16</td></tr>
+                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">5 draws</td><td style="padding: 12px;">3.30</td><td style="padding: 12px;">3.0</td><td style="padding: 12px;">8</td><td style="padding: 12px;">1.37</td></tr>
+                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">6 draws</td><td style="padding: 12px;">4.70</td><td style="padding: 12px;">5.0</td><td style="padding: 12px;">9</td><td style="padding: 12px;">1.52</td></tr>
+                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">7 draws</td><td style="padding: 12px;">6.24</td><td style="padding: 12px;">6.0</td><td style="padding: 12px;">12</td><td style="padding: 12px;">1.64</td></tr>
+                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">8 draws</td><td style="padding: 12px;">7.88</td><td style="padding: 12px;">8.0</td><td style="padding: 12px;">14</td><td style="padding: 12px;">1.75</td></tr>
+                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">9 draws</td><td style="padding: 12px;">9.61</td><td style="padding: 12px;">10.0</td><td style="padding: 12px;">16</td><td style="padding: 12px;">1.85</td></tr>
+                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">10 draws</td><td style="padding: 12px;">11.39</td><td style="padding: 12px;">11.0</td><td style="padding: 12px;">18</td><td style="padding: 12px;">1.94</td></tr>
+                </table>
+
+                <p style="margin-top: 20px; color: #666; font-size: 12px; line-height: 1.6;">
+                    <strong>Interpretation:</strong> As window size increases, more overlaps occur (expected). For example, when looking at 10 consecutive draws, an average of 11.39 white ball numbers repeat from previous draws.
+                </p>
             </div>
         </div>
 
