@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎰 Powerball Number Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 1000px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .header-left {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .language-switch {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .lang-btn:hover {
+            border-color: #667eea;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+            margin-right: 10px;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .count-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-generate {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            grid-column: span 2;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .number-combo {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .combo-numbers {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .number-ball {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .white-ball {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .red-ball {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .plus-sign {
+            margin: 0 8px;
+            font-weight: bold;
+            color: #999;
+        }
+
+        .result-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: #f0f7ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #555;
+            margin-top: 15px;
+        }
+
+        .recent-numbers {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+
+        .mini-ball {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(135deg, #ccc 0%, #999 100%);
+        }
+
+        .mini-ball.white {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .mini-ball.red {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .latest-section {
+            background: #fffbf0;
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .latest-section .section-title::before {
+            background: #ff9800;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .period-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+
+        .period-table th, .period-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .period-table th {
+            background: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .period-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .language-switch {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <h1>🎰 <span lang="en">Powerball Generator</span><span lang="zh" style="display:none;">Powerball 号码生成器</span></h1>
+                <p class="subtitle">
+                    <span lang="en">AI-powered suggestions based on recent draws - for entertainment only</span>
+                    <span lang="zh" style="display:none;">基于最近开奖号码的智能建议系统 - 仅供娱乐</span>
+                </p>
+            </div>
+            <div class="language-switch">
+                <button class="lang-btn active" onclick="setLanguage('en')">English</button>
+                <button class="lang-btn" onclick="setLanguage('zh')">中文</button>
+            </div>
+        </header>
+
+        <!-- 最新开奖 -->
+        <div class="latest-section">
+            <div class="section-title">
+                <span lang="en">🎊 Latest Draw</span>
+                <span lang="zh" style="display:none;">🎊 最新开奖</span>
+            </div>
+            <div id="latestDisplay" style="text-align: center;">
+                <div style="padding: 20px; color: #999;"><span lang="en">Loading...</span><span lang="zh" style="display:none;">加载中...</span></div>
+            </div>
+        </div>
+
+        <div class="two-column">
+            <!-- 控制面板 -->
+            <div class="section">
+                <div class="section-title">
+                    <span lang="en">⚙️ Settings</span>
+                    <span lang="zh" style="display:none;">⚙️ 参数设置</span>
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span lang="en">Decay Strength</span>
+                        <span lang="zh" style="display:none;">递减权重强度</span>
+                        <span id="strengthValue">60%</span>
+                    </div>
+                    <input type="range" id="strengthSlider" class="slider" min="0" max="100" value="60" step="5">
+                    <p style="font-size: 12px; color: #999; margin-top: 8px;">
+                        <span lang="en">0% = no decay | 50% = medium | 100% = strong</span>
+                        <span lang="zh" style="display:none;">0% = 无递减 | 50% = 中等 | 100% = 强烈</span>
+                    </p>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">
+                        <span lang="en">Generate Sets</span>
+                        <span lang="zh" style="display:none;">生成组数</span>
+                    </label>
+                    <input type="number" id="countInput" class="count-input" min="1" max="20" value="5">
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-generate" onclick="generateNumbers()">
+                        <span lang="en">🎲 Generate</span>
+                        <span lang="zh" style="display:none;">🎲 生成建议号码</span>
+                    </button>
+                    <button class="btn-secondary" onclick="generateNumbers()">
+                        <span lang="en">🔄 Again</span>
+                        <span lang="zh" style="display:none;">🔄 再来一次</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 信息面板 -->
+            <div class="section">
+                <div class="section-title">
+                    <span lang="en">📊 Recent Period Analysis</span>
+                    <span lang="zh" style="display:none;">📊 最近期数分析</span>
+                </div>
+                <table class="period-table" id="periodTable">
+                    <thead>
+                        <tr>
+                            <th><span lang="en">Period</span><span lang="zh" style="display:none;">期数</span></th>
+                            <th><span lang="en">Date</span><span lang="zh" style="display:none;">日期</span></th>
+                            <th><span lang="en">Weight</span><span lang="zh" style="display:none;">权重</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="periodTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 生成结果 -->
+        <div class="section" id="resultsSection" style="display: none;">
+            <div class="section-title">
+                <span lang="en">✨ Recommended Numbers</span>
+                <span lang="zh" style="display:none;">✨ 推荐号码</span>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p><span lang="en">Generating...</span><span lang="zh" style="display:none;">生成中...</span></p>
+            </div>
+
+            <div id="resultContent" style="display: none;">
+                <div class="numbers-grid" id="resultsGrid"></div>
+
+                <div class="info-box">
+                    <strong>📊 <span lang="en">Statistics</span><span lang="zh" style="display:none;">统计信息</span></strong><br>
+                    <strong><span lang="en">Recent white balls:</span><span lang="zh" style="display:none;">最近白球：</span></strong>
+                    <div class="recent-numbers" id="recentWhiteDisplay"></div>
+                    <strong style="display: block; margin-top: 10px;"><span lang="en">Recent red balls:</span><span lang="zh" style="display:none;">最近红球：</span></strong>
+                    <div class="recent-numbers" id="recentRedDisplay"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px solid #e0e0e0;">
+            <p style="font-size: 12px; color: #999;">
+                <span lang="en">💡 Tip: This is a recreational tool. Lottery results are completely random and predictions have no predictive power.</span>
+                <span lang="zh" style="display:none;">💡 提示：这仅是一个娱乐工具，彩票结果完全随机，号码建议不具有预测能力。</span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // 语言切换
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[lang]').forEach(el => {
+                el.style.display = lang === el.getAttribute('lang') ? 'inline' : 'none';
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            localStorage.setItem('language', lang);
+            loadLatestDrawing();
+        }
+
+        // 恢复语言设置
+        const savedLang = localStorage.getItem('language') || 'en';
+        window.addEventListener('load', () => {
+            setLanguage(savedLang);
+            document.querySelector(`.lang-btn:nth-child(${savedLang === 'en' ? 1 : 2})`).classList.add('active');
+        });
+
+        // 更新强度显示
+        document.getElementById('strengthSlider').addEventListener('input', function() {
+            document.getElementById('strengthValue').textContent = this.value + '%';
+        });
+
+        // 显示最新开奖
+        async function loadLatestDrawing() {
+            try {
+                const response = await fetch('/api/latest');
+                const data = await response.json();
+                displayLatestDrawing(data);
+            } catch (error) {
+                console.error('Error loading latest drawing:', error);
+            }
+        }
+
+        function displayLatestDrawing(data) {
+            const html = `
+                <div style="text-align: center;">
+                    <div style="font-size: 12px; color: #999; margin-bottom: 10px;">${data.date}</div>
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 15px; max-width: 300px; margin-left: auto; margin-right: auto;">
+                        ${data.white.map(num => `<div class="number-ball white-ball" style="width: 50px; height: 50px; font-size: 18px;">${num}</div>`).join('')}
+                    </div>
+                    <div style="display: flex; justify-content: center; gap: 15px;">
+                        <div class="number-ball red-ball" style="width: 80px; height: 80px; font-size: 32px;">${data.red}</div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('latestDisplay').innerHTML = html;
+        }
+
+        // 生成号码
+        async function generateNumbers() {
+            const strength = document.getElementById('strengthSlider').value / 100;
+            const count = parseInt(document.getElementById('countInput').value) || 5;
+            const resultsSection = document.getElementById('resultsSection');
+            const loading = document.getElementById('loading');
+            const resultContent = document.getElementById('resultContent');
+
+            resultsSection.style.display = 'block';
+            loading.style.display = 'block';
+            resultContent.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        weight_strength: strength,
+                        periods: 5,
+                        count: count
+                    })
+                });
+
+                const data = await response.json();
+
+                loading.style.display = 'none';
+                resultContent.style.display = 'block';
+                displayResults(data);
+                updatePeriodTable(data.recent_numbers);
+
+                setTimeout(() => {
+                    resultsSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            } catch (error) {
+                console.error('Error generating numbers:', error);
+                loading.style.display = 'none';
+                resultContent.innerHTML = '<div style="color: red;">Error generating numbers. Please try again.</div>';
+            }
+        }
+
+        function displayResults(data) {
+            const lang = document.documentElement.lang;
+            const grid = document.getElementById('resultsGrid');
+            grid.innerHTML = data.numbers.map((combo, idx) => `
+                <div class="number-combo">
+                    <div class="combo-numbers">
+                        ${combo.white.map(num => `<div class="number-ball white-ball">${num}</div>`).join('')}
+                        <span class="plus-sign">+</span>
+                        <div class="number-ball red-ball">${combo.red}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // 显示最近号码
+            const recentWhiteHtml = data.recent_white.map(num =>
+                `<div class="mini-ball white">${num}</div>`
+            ).join('');
+            document.getElementById('recentWhiteDisplay').innerHTML = recentWhiteHtml;
+
+            const recentRedHtml = data.recent_red.map(num =>
+                `<div class="mini-ball red">${num}</div>`
+            ).join('');
+            document.getElementById('recentRedDisplay').innerHTML = recentRedHtml;
+        }
+
+        function updatePeriodTable(recentNumbers) {
+            const tbody = document.getElementById('periodTableBody');
+            tbody.innerHTML = recentNumbers.map(data => `
+                <tr>
+                    <td><span class="period-badge">Period ${data.period}</span></td>
+                    <td>${data.date}</td>
+                    <td>${((data.period / 5) * 100).toFixed(0)}%</td>
+                </tr>
+            `).join('');
+        }
+
+        // 页面加载
+        loadLatestDrawing();
+    </script>
+</body>
+</html>
