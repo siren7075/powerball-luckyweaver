@@ -1,27 +1,61 @@
-# 🎰 Powerball Rolling Window Overlap Analysis
+# 🎰 Powerball Study & Interactive Number Generator
 
-A data science study analyzing white ball number overlap patterns across consecutive Powerball lottery drawings.
+A comprehensive Powerball lottery analysis project with an **interactive web-based number generator** featuring probability weighting, period-based decay, and multilingual support.
 
-## Project Overview
+**⭐ New!** Try the interactive web app: Bilingual UI, batch generation (1-20 sets), intelligent probability decay based on recent draws.
 
-This project examines how white ball numbers repeat when looking at rolling windows of 2-10 consecutive drawings. Rather than focusing on a single phenomenon, we construct an empirical probability matrix showing the distribution of overlaps across different time horizons.
+---
 
-**Research Question**: How do white ball numbers repeat across consecutive drawing windows of different sizes?
+## 🚀 Quick Start - Interactive Generator
 
-## Dataset
+### Try the Web App
+
+```bash
+cd powerball-study
+python3 -m venv app_venv
+source app_venv/bin/activate
+pip install -r requirements.txt
+python3 app.py
+```
+
+Then open: **http://localhost:5001**
+
+### Features
+✨ **Bilingual** - English / 中文 toggle  
+🎲 **Batch Generation** - Generate 1-20 number sets at once  
+📊 **Decay Weighting** - Recent draws have higher weight reduction  
+📅 **Period Analysis** - View weight decay by drawing period  
+🎯 **Adjustable Strength** - 0% (no decay) to 100% (complete avoidance)  
+🎨 **Beautiful UI** - Responsive gradient design with smooth animations  
+
+### How It Works
+
+The generator reduces probability of recently drawn numbers while maintaining variance:
+
+- **Period 5** (most recent) → 100% decay weight
+- **Period 4** → 80% decay weight
+- **Period 3** → 60% decay weight
+- **Period 2** → 40% decay weight
+- **Period 1** (oldest) → 20% decay weight
+
+Example: With 60% strength, the most recent draw has numbers with ~60% reduced probability.
+
+---
+
+## 📊 Data Science Study
+
+### Project Overview
+
+Comprehensive analysis of Powerball white ball number patterns across rolling windows of consecutive drawings.
+
+**Research Question**: How do white ball numbers repeat across consecutive drawing windows?
+
+### Dataset
 
 - **Source**: Official New York State Powerball Lottery Records
 - **Time Period**: January 2010 - July 2026
 - **Total Drawings**: 1,967
-- **Data Quality**: No duplicates found, fully cleaned and validated
-
-## Current Study: Rolling Window Overlap Analysis
-
-We analyze rolling windows of sizes 2 through 10 consecutive drawings to determine:
-
-- **Average overlaps** - Mean number of repeated white balls per window
-- **Distribution** - Probability of 0, 1, 2, 3... repeated numbers
-- **Statistics** - Median, min, max, and standard deviation for each window size
+- **Data Quality**: Cleaned, validated, no duplicates
 
 ### Key Findings
 
@@ -31,49 +65,35 @@ We analyze rolling windows of sizes 2 through 10 consecutive drawings to determi
 | 5 | 3.30 | 3 | 0 | 8 |
 | 10 | 11.39 | 12 | 5 | 18 |
 
-**Observation**: As window size increases, expected overlap increases. This is consistent with probability theory – longer windows have higher likelihood of repeated numbers.
+**Observation**: Overlap increases with window size, consistent with probability theory.
 
-## Repository Structure
+### Repository Structure
 
 ```
 powerball-study/
-├── README.md                                  # This file
-├── PROJECT_SUMMARY.md                        # Chinese summary
-├── PROJECT_SUMMARY_EN.md                     # English summary
-│
-├── src/                                       # Python scripts
-│   ├── rolling_window_analysis.py            # Main analysis
-│   ├── rolling_window_visualizations.py      # Charts and graphs
-│   └── generate_report_and_infographic.py    # Report generation
+├── app.py                                     # Flask web server
+├── powerball_generator.py                     # Number generation logic
+├── templates/
+│   └── index.html                             # Interactive UI (bilingual)
 │
 ├── data/
-│   └── powerball_clean.csv                   # Cleaned dataset
+│   └── powerball_clean.csv                    # Dataset (1,967 drawings)
+│
+├── src/                                       # Analysis scripts
+│   ├── rolling_window_analysis.py
+│   ├── rolling_window_visualizations.py
+│   └── generate_report_and_infographic.py
 │
 └── results/                                   # Analysis outputs
-    ├── Powerball_Rolling_Overlap_Report.pdf   # Full technical report
-    ├── Powerball_Rolling_Overlap_Summary.png  # Infographic
-    ├── rolling_window_heatmap.png            # Probability heatmap
-    ├── rolling_window_statistics.png         # Statistics chart
-    ├── rolling_window_summary_table.png      # Summary table
-    ├── rolling_window_matrix.csv             # Empirical probabilities
-    └── rolling_window_results.json           # Raw results
+    ├── Powerball_Rolling_Overlap_Report.pdf
+    ├── rolling_window_matrix.csv
+    └── [visualizations]
 ```
 
-## Main Outputs
-
-- **PDF Report** (`Powerball_Rolling_Overlap_Report.pdf`) - Comprehensive technical report with all visualizations
-- **Infographic** (`Powerball_Rolling_Overlap_Summary.png`) - Single-page visual summary
-- **Probability Matrix** (`rolling_window_matrix.csv`) - Empirical probability data
-- **Visualizations** - Heatmap, statistics chart, and summary table (high-resolution PNG)
-
-## Running the Analysis
+### Running the Data Analysis
 
 ```bash
-# Clone repository
-git clone https://github.com/siren7075/powerball-study.git
-cd powerball-study
-
-# Set up environment
+# Set up
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -81,40 +101,64 @@ pip install -r requirements.txt
 # Run analysis
 python3 src/rolling_window_analysis.py          # Compute statistics
 python3 src/rolling_window_visualizations.py    # Generate charts
-python3 src/generate_report_and_infographic.py  # Create report & infographic
+python3 src/generate_report_and_infographic.py  # Create report
 ```
 
-## Important Notes
+### Outputs
 
-⚠️ **This is a descriptive statistical analysis**
-- **No predictive claims** - Historical patterns do not predict future outcomes
-- **No strategy recommendations** - Study cannot be used to improve lottery odds
-- **Empirical only** - Results describe observed historical distributions
-- **Lottery is random** - Outcomes remain inherently unpredictable
-
-This study is for educational and analytical purposes only.
-
-## Future Work
-
-Potential extensions:
-- Analysis of Powerball (red ball) patterns
-- Time-series analysis of drawing patterns
-- Comparison with theoretical random distributions
-- Geographic analysis if state-level data becomes available
-
-## Tools & Technologies
-
-- **Python 3.14** - Core language
-- **Pandas** - Data processing
-- **Matplotlib & Seaborn** - Visualization
-- **ReportLab** - PDF generation
-
-## Author & Repository
-
-**GitHub**: https://github.com/siren7075/powerball-study (Private)  
-**Analysis Date**: July 2026  
-**Data Source**: Official NY State Powerball Records
+- **PDF Report** - Technical analysis with all visualizations
+- **Infographic** - Single-page summary
+- **Probability Matrix** - Empirical data (CSV)
+- **Charts** - Heatmaps, distributions, statistics
 
 ---
 
-*A focused statistical study of historical Powerball lottery data.*
+## ⚖️ Important Disclaimer
+
+⚠️ **Educational Purpose Only**
+
+- ❌ **No predictive claims** - Patterns do not predict future outcomes
+- ❌ **No strategy** - Cannot improve actual lottery odds
+- ❌ **Entertainment only** - The web generator is for fun, not gambling advice
+- ✅ **Random outcome** - Lottery drawings remain inherently unpredictable
+
+Each Powerball drawing is independent. Historical analysis is descriptive, not predictive.
+
+---
+
+## 🛠️ Technology Stack
+
+**Web App:**
+- Flask (Python web framework)
+- NumPy (probability calculations)
+- Vanilla JavaScript/HTML5/CSS3 (frontend)
+
+**Analysis:**
+- Python 3.14
+- Pandas (data processing)
+- Matplotlib & Seaborn (visualization)
+- ReportLab (PDF generation)
+
+---
+
+## 📚 Documentation
+
+- `PROJECT_SUMMARY.md` - Chinese project overview
+- `PROJECT_SUMMARY_EN.md` - English project overview
+- `LOTTERY_ODDS_EXPLAINED.md` - Lottery odds explanation
+
+---
+
+## 🔗 Links
+
+**GitHub:** https://github.com/siren7075/powerball-study  
+**Data Source:** Official NY State Powerball Records  
+**Analysis Date:** July 2026
+
+---
+
+## 📝 License & Attribution
+
+Data science study and web application for educational purposes.
+
+*A data-driven exploration of Powerball lottery patterns with an interactive number generation tool.*
