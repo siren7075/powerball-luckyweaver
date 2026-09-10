@@ -32,5 +32,28 @@ def stats():
         'recent_red': recent_red
     })
 
+@app.route('/api/studies', methods=['GET'])
+def studies():
+    import json
+    try:
+        with open('results/data/rolling_window_results.json') as f:
+            data = json.load(f)
+        return jsonify(data)
+    except:
+        return jsonify({'error': 'Studies data not available'})
+
+@app.route('/api/overlap-matrix', methods=['GET'])
+def overlap_matrix():
+    import csv
+    try:
+        matrix = []
+        with open('results/data/rolling_window_matrix.csv') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                matrix.append(row)
+        return jsonify({'data': matrix})
+    except:
+        return jsonify({'error': 'Matrix data not available'})
+
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

@@ -61,6 +61,34 @@
             justify-content: flex-end;
         }
 
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-size: 14px;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-btn:hover {
+            color: #667eea;
+        }
+
         .lang-btn {
             padding: 8px 14px;
             border: 2px solid #ddd;
@@ -481,6 +509,27 @@
             </div>
         </header>
 
+        <!-- Tab Navigation -->
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="switchTab('generator')">
+                <span lang="en">Generator</span>
+                <span lang="es" style="display:none;">Generador</span>
+                <span lang="pt" style="display:none;">Gerador</span>
+                <span lang="fr" style="display:none;">Générateur</span>
+                <span lang="zh" style="display:none;">生成器</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('studies')">
+                <span lang="en">Studies</span>
+                <span lang="es" style="display:none;">Estudios</span>
+                <span lang="pt" style="display:none;">Estudos</span>
+                <span lang="fr" style="display:none;">Études</span>
+                <span lang="zh" style="display:none;">研究</span>
+            </button>
+        </div>
+
+        <!-- Generator Tab -->
+        <div id="generatorTab">
+
         <!-- Latest Draw -->
         <div class="latest-section">
             <div class="section-title">
@@ -577,6 +626,28 @@
             </div>
         </div>
 
+        <!-- Studies Tab -->
+        <div class="section" id="studiesSection" style="display: none;">
+            <div class="section-title">
+                <span lang="en">Research Studies</span>
+                <span lang="es" style="display:none;">Estudios de Investigación</span>
+                <span lang="pt" style="display:none;">Estudos de Pesquisa</span>
+                <span lang="fr" style="display:none;">Études de Recherche</span>
+                <span lang="zh" style="display:none;">研究分析</span>
+            </div>
+
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
+                <h4 style="color: #333; margin-bottom: 15px;">Rolling Window Analysis</h4>
+                <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
+                    Analysis of white ball overlap patterns across consecutive draws using rolling windows of 2-10 draws.
+                </p>
+
+                <div id="studiesContent" style="color: #555; font-size: 14px; line-height: 1.6;">
+                    <div style="text-align: center; padding: 20px; color: #999;">Loading...</div>
+                </div>
+            </div>
+        </div>
+
         <!-- Results -->
         <div class="section" id="resultsSection" style="display: none;">
             <div class="section-title">
@@ -604,6 +675,9 @@
                 </div>
             </div>
         </div>
+
+        </div>
+        <!-- End Generator Tab -->
 
         <!-- Footer -->
         <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px solid #e0e0e0;">
@@ -712,6 +786,70 @@
             const modal = document.getElementById('manualModal');
             if (event.target == modal) {
                 modal.style.display = 'none';
+            }
+        }
+
+        function switchTab(tab) {
+            // Hide all tabs
+            document.getElementById('generatorTab').style.display = 'none';
+            document.getElementById('studiesSection').style.display = 'none';
+
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab
+            if (tab === 'generator') {
+                document.getElementById('generatorTab').style.display = 'block';
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+            } else if (tab === 'studies') {
+                document.getElementById('studiesSection').style.display = 'block';
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                loadStudies();
+            }
+        }
+
+        async function loadStudies() {
+            try {
+                const response = await fetch('/api/studies');
+                const studies = await response.json();
+
+                let html = '<table style="width: 100%; border-collapse: collapse;">';
+                html += '<thead><tr style="border-bottom: 2px solid #667eea;">';
+                html += '<th style="padding: 10px; text-align: left;">Window</th>';
+                html += '<th style="padding: 10px; text-align: left;">Mean</th>';
+                html += '<th style="padding: 10px; text-align: left;">Median</th>';
+                html += '<th style="padding: 10px; text-align: left;">Max</th>';
+                html += '<th style="padding: 10px; text-align: left;">Std Dev</th>';
+                html += '</tr></thead><tbody>';
+
+                for (const [key, data] of Object.entries(studies)) {
+                    const ws = data.window_size || key;
+                    const mean = data.mean ? data.mean.toFixed(2) : 'N/A';
+                    const median = data.median || 0;
+                    const max = data.max || 0;
+                    const std = data.std ? data.std.toFixed(2) : 'N/A';
+
+                    html += `<tr style="border-bottom: 1px solid #e0e0e0;">`;
+                    html += `<td style="padding: 10px;">${ws}</td>`;
+                    html += `<td style="padding: 10px;">${mean}</td>`;
+                    html += `<td style="padding: 10px;">${median}</td>`;
+                    html += `<td style="padding: 10px;">${max}</td>`;
+                    html += `<td style="padding: 10px;">${std}</td>`;
+                    html += `</tr>`;
+                }
+
+                html += '</tbody></table>';
+                html += '<p style="margin-top: 20px; color: #666; font-size: 13px;">';
+                html += 'Window Size = Number of consecutive draws analyzed<br>';
+                html += 'Mean = Average overlapping numbers<br>';
+                html += 'Median = Middle value of distribution<br>';
+                html += 'Max = Maximum overlaps observed<br>';
+                html += 'Std Dev = Standard deviation';
+                html += '</p>';
+
+                document.getElementById('studiesContent').innerHTML = html;
+            } catch (error) {
+                document.getElementById('studiesContent').innerHTML = '<p style="color: red;">Error loading studies</p>';
             }
         }
 
