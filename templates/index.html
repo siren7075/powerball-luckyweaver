@@ -359,6 +359,75 @@
             gap: 20px;
         }
 
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+            color: #999;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .manual-section {
+            margin: 20px 0;
+        }
+
+        .manual-section h3 {
+            color: #667eea;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .manual-section p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .manual-section code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+
+        .manual-section ol, .manual-section ul {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        .manual-section li {
+            margin: 8px 0;
+        }
+
         @media (max-width: 768px) {
             .two-column {
                 grid-template-columns: 1fr;
@@ -381,6 +450,11 @@
             .btn-generate {
                 grid-column: span 1;
             }
+
+            .modal-content {
+                width: 95%;
+                margin: 20% auto;
+            }
         }
     </style>
 </head>
@@ -388,7 +462,7 @@
     <div class="container">
         <header>
             <div class="header-left">
-                <h1><span lang="en">Powerball Generator</span><span lang="es" style="display:none;">Generador Powerball</span><span lang="pt" style="display:none;">Gerador Powerball</span><span lang="fr" style="display:none;">Générateur Powerball</span><span lang="zh" style="display:none;">Powerball 号码生成器</span></h1>
+                <h1><span lang="en">PowerballWeaver</span><span lang="es" style="display:none;">PowerballWeaver</span><span lang="pt" style="display:none;">PowerballWeaver</span><span lang="fr" style="display:none;">PowerballWeaver</span><span lang="zh" style="display:none;">PowerballWeaver</span></h1>
                 <p class="subtitle">
                     <span lang="en">Smart suggestions based on recent draws - for entertainment only</span>
                     <span lang="es" style="display:none;">Sugerencias inteligentes basadas en sorteos recientes - solo entretenimiento</span>
@@ -403,6 +477,7 @@
                 <button class="lang-btn" onclick="setLanguage('pt')">Português</button>
                 <button class="lang-btn" onclick="setLanguage('fr')">Français</button>
                 <button class="lang-btn" onclick="setLanguage('zh')">中文</button>
+                <button class="lang-btn" style="background: #f0f0f0; color: #333;" onclick="openManual()">Help</button>
             </div>
         </header>
 
@@ -542,6 +617,80 @@
         </div>
     </div>
 
+    <!-- Manual Modal -->
+    <div id="manualModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeManual()">&times;</span>
+            <h2>PowerballWeaver Manual</h2>
+
+            <div class="manual-section">
+                <h3>What is PowerballWeaver?</h3>
+                <p>An intelligent Powerball number generator using probability weighting. It suggests numbers based on historical draws, making it educational and fun.</p>
+            </div>
+
+            <div class="manual-section">
+                <h3>How to Use</h3>
+                <ol>
+                    <li><strong>Select Language:</strong> Click language buttons at top right</li>
+                    <li><strong>Set Decay Strength:</strong> Slider (0-100%)
+                        <ul>
+                            <li>0% = random selection</li>
+                            <li>50% = balanced approach</li>
+                            <li>100% = avoid recent numbers</li>
+                        </ul>
+                    </li>
+                    <li><strong>Set Number of Sets:</strong> Enter 1-20 combinations to generate</li>
+                    <li><strong>Click Generate:</strong> Creates your number suggestions</li>
+                    <li><strong>Review Results:</strong> See numbers and statistics</li>
+                </ol>
+            </div>
+
+            <div class="manual-section">
+                <h3>Understanding Decay Strength</h3>
+                <p>Recent Powerball draws are weighted down, making those numbers less likely. Older draws have lower weight reduction.</p>
+                <ul>
+                    <li>Period 5 (most recent): 100% decay</li>
+                    <li>Period 4: 80% decay</li>
+                    <li>Period 3: 60% decay</li>
+                    <li>Period 2: 40% decay</li>
+                    <li>Period 1 (oldest): 20% decay</li>
+                </ul>
+            </div>
+
+            <div class="manual-section">
+                <h3>Updating Data</h3>
+                <p>Data is current as of July 2026. To get latest draws:</p>
+                <ol>
+                    <li>Visit powerball.com/results</li>
+                    <li>Copy latest draw numbers</li>
+                    <li>Add to data/powerball_clean.csv</li>
+                    <li>Restart application</li>
+                </ol>
+                <p>Or run: python3 download_latest_data.py</p>
+            </div>
+
+            <div class="manual-section">
+                <h3>Supported Languages</h3>
+                <p>English, Spanish, Portuguese, French, Chinese</p>
+            </div>
+
+            <div class="manual-section">
+                <h3>Important Disclaimer</h3>
+                <p>PowerballWeaver is for entertainment and education only. Lottery results are random and unpredictable. This tool does not improve your chances of winning.</p>
+            </div>
+
+            <div class="manual-section">
+                <h3>Tips</h3>
+                <ul>
+                    <li>Try different decay strengths to see different patterns</li>
+                    <li>Generate multiple sets to compare combinations</li>
+                    <li>Use this for learning probability, not as gambling advice</li>
+                    <li>Keep data updated for better analysis</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <script>
         const translations = {
             en: { lang: 'en', name: 'English' },
@@ -550,6 +699,21 @@
             fr: { lang: 'fr', name: 'Français' },
             zh: { lang: 'zh', name: '中文' }
         };
+
+        function openManual() {
+            document.getElementById('manualModal').style.display = 'block';
+        }
+
+        function closeManual() {
+            document.getElementById('manualModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('manualModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
 
         function setLanguage(lang) {
             if (!translations[lang]) return;
