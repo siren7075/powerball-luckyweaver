@@ -61,33 +61,6 @@
             justify-content: flex-end;
         }
 
-        .tab-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-            border-bottom: 2px solid #e0e0e0;
-        }
-
-        .tab-btn {
-            padding: 12px 20px;
-            background: none;
-            border: none;
-            border-bottom: 3px solid transparent;
-            font-size: 14px;
-            font-weight: bold;
-            color: #666;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active {
-            color: #667eea;
-            border-bottom-color: #667eea;
-        }
-
-        .tab-btn:hover {
-            color: #667eea;
-        }
 
         .lang-btn {
             padding: 8px 14px;
@@ -509,26 +482,6 @@
             </div>
         </header>
 
-        <!-- Tab Navigation -->
-        <div class="tab-buttons">
-            <button class="tab-btn active" onclick="switchTab('generator')">
-                <span lang="en">Generator</span>
-                <span lang="es" style="display:none;">Generador</span>
-                <span lang="pt" style="display:none;">Gerador</span>
-                <span lang="fr" style="display:none;">Générateur</span>
-                <span lang="zh" style="display:none;">生成器</span>
-            </button>
-            <button class="tab-btn" onclick="switchTab('studies')">
-                <span lang="en">Studies</span>
-                <span lang="es" style="display:none;">Estudios</span>
-                <span lang="pt" style="display:none;">Estudos</span>
-                <span lang="fr" style="display:none;">Études</span>
-                <span lang="zh" style="display:none;">研究</span>
-            </button>
-        </div>
-
-        <!-- Generator Tab -->
-        <div id="generatorTab">
 
         <!-- Latest Draw -->
         <div class="latest-section">
@@ -623,47 +576,6 @@
                     <tbody id="periodTableBody">
                     </tbody>
                 </table>
-            </div>
-        </div>
-
-        <!-- Studies Tab -->
-        <div class="section" id="studiesSection" style="display: none;">
-            <div class="section-title">
-                <span lang="en">Research Studies</span>
-                <span lang="es" style="display:none;">Estudios de Investigación</span>
-                <span lang="pt" style="display:none;">Estudos de Pesquisa</span>
-                <span lang="fr" style="display:none;">Études de Recherche</span>
-                <span lang="zh" style="display:none;">研究分析</span>
-            </div>
-
-            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
-                <h4 style="color: #333; margin-bottom: 15px;">Rolling Window Overlap Analysis</h4>
-                <p style="color: #666; font-size: 13px; margin-bottom: 20px;">
-                    Analysis of 1,967 Powerball draws (2010-2026). Shows how many white ball numbers repeat when looking at rolling windows of 2-10 consecutive draws.
-                </p>
-
-                <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-                <tr style="background: #f0f0f0; border-bottom: 2px solid #667eea;">
-                <th style="padding: 12px; text-align: left;">Window</th>
-                <th style="padding: 12px; text-align: left;">Mean Overlap</th>
-                <th style="padding: 12px; text-align: left;">Median</th>
-                <th style="padding: 12px; text-align: left;">Max</th>
-                <th style="padding: 12px; text-align: left;">Std Dev</th>
-                </tr>
-                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">2 draws</td><td style="padding: 12px;">0.38</td><td style="padding: 12px;">0.0</td><td style="padding: 12px;">3</td><td style="padding: 12px;">0.57</td></tr>
-                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">3 draws</td><td style="padding: 12px;">1.08</td><td style="padding: 12px;">1.0</td><td style="padding: 12px;">5</td><td style="padding: 12px;">0.89</td></tr>
-                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">4 draws</td><td style="padding: 12px;">2.08</td><td style="padding: 12px;">2.0</td><td style="padding: 12px;">6</td><td style="padding: 12px;">1.16</td></tr>
-                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">5 draws</td><td style="padding: 12px;">3.30</td><td style="padding: 12px;">3.0</td><td style="padding: 12px;">8</td><td style="padding: 12px;">1.37</td></tr>
-                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">6 draws</td><td style="padding: 12px;">4.70</td><td style="padding: 12px;">5.0</td><td style="padding: 12px;">9</td><td style="padding: 12px;">1.52</td></tr>
-                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">7 draws</td><td style="padding: 12px;">6.24</td><td style="padding: 12px;">6.0</td><td style="padding: 12px;">12</td><td style="padding: 12px;">1.64</td></tr>
-                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">8 draws</td><td style="padding: 12px;">7.88</td><td style="padding: 12px;">8.0</td><td style="padding: 12px;">14</td><td style="padding: 12px;">1.75</td></tr>
-                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">9 draws</td><td style="padding: 12px;">9.61</td><td style="padding: 12px;">10.0</td><td style="padding: 12px;">16</td><td style="padding: 12px;">1.85</td></tr>
-                <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 12px;">10 draws</td><td style="padding: 12px;">11.39</td><td style="padding: 12px;">11.0</td><td style="padding: 12px;">18</td><td style="padding: 12px;">1.94</td></tr>
-                </table>
-
-                <p style="margin-top: 20px; color: #666; font-size: 12px; line-height: 1.6;">
-                    <strong>Interpretation:</strong> As window size increases, more overlaps occur (expected). For example, when looking at 10 consecutive draws, an average of 11.39 white ball numbers repeat from previous draws.
-                </p>
             </div>
         </div>
 
@@ -808,72 +720,7 @@
             }
         }
 
-        function switchTab(tab) {
-            const generatorTab = document.getElementById('generatorTab');
-            const studiesSection = document.getElementById('studiesSection');
-            const buttons = document.querySelectorAll('.tab-btn');
 
-            if (tab === 'generator') {
-                if (generatorTab) generatorTab.style.display = 'block';
-                if (studiesSection) studiesSection.style.display = 'none';
-                buttons.forEach((btn, idx) => {
-                    if (idx === 0) btn.classList.add('active');
-                    else btn.classList.remove('active');
-                });
-            } else if (tab === 'studies') {
-                if (generatorTab) generatorTab.style.display = 'none';
-                if (studiesSection) studiesSection.style.display = 'block';
-                buttons.forEach((btn, idx) => {
-                    if (idx === 1) btn.classList.add('active');
-                    else btn.classList.remove('active');
-                });
-            }
-        }
-
-        async function loadStudies() {
-            try {
-                const response = await fetch('/api/studies');
-                const studies = await response.json();
-
-                let html = '<table style="width: 100%; border-collapse: collapse;">';
-                html += '<thead><tr style="border-bottom: 2px solid #667eea;">';
-                html += '<th style="padding: 10px; text-align: left;">Window</th>';
-                html += '<th style="padding: 10px; text-align: left;">Mean</th>';
-                html += '<th style="padding: 10px; text-align: left;">Median</th>';
-                html += '<th style="padding: 10px; text-align: left;">Max</th>';
-                html += '<th style="padding: 10px; text-align: left;">Std Dev</th>';
-                html += '</tr></thead><tbody>';
-
-                for (const [key, data] of Object.entries(studies)) {
-                    const ws = data.window_size || key;
-                    const mean = data.mean ? data.mean.toFixed(2) : 'N/A';
-                    const median = data.median || 0;
-                    const max = data.max || 0;
-                    const std = data.std ? data.std.toFixed(2) : 'N/A';
-
-                    html += `<tr style="border-bottom: 1px solid #e0e0e0;">`;
-                    html += `<td style="padding: 10px;">${ws}</td>`;
-                    html += `<td style="padding: 10px;">${mean}</td>`;
-                    html += `<td style="padding: 10px;">${median}</td>`;
-                    html += `<td style="padding: 10px;">${max}</td>`;
-                    html += `<td style="padding: 10px;">${std}</td>`;
-                    html += `</tr>`;
-                }
-
-                html += '</tbody></table>';
-                html += '<p style="margin-top: 20px; color: #666; font-size: 13px;">';
-                html += 'Window Size = Number of consecutive draws analyzed<br>';
-                html += 'Mean = Average overlapping numbers<br>';
-                html += 'Median = Middle value of distribution<br>';
-                html += 'Max = Maximum overlaps observed<br>';
-                html += 'Std Dev = Standard deviation';
-                html += '</p>';
-
-                document.getElementById('studiesContent').innerHTML = html;
-            } catch (error) {
-                document.getElementById('studiesContent').innerHTML = '<p style="color: red;">Error loading studies</p>';
-            }
-        }
 
         function setLanguage(lang) {
             if (!translations[lang]) return;
