@@ -60,8 +60,8 @@ It's not a prediction tool (lottery is random!), but rather a **fun exploration 
 ## 🚀 Quick Start (30 seconds)
 
 ```bash
-git clone https://github.com/siren7075/luckyweaver.git
-cd luckyweaver
+git clone https://github.com/siren7075/powerball-luckyweaver.git
+cd powerball-luckyweaver
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
