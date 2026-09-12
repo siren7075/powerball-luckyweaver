@@ -1,21 +1,39 @@
-# 🎰 LuckyWeaver - Intelligent Powerball Number Generator
+# 🎰 Powerball-LuckyWeaver - Intelligent Powerball Number Generator
 
-> **Weave probability patterns into winning possibilities** 🎯
+> **Your lucky numbers meet probability patterns** ✨
 
-An interactive, multilingual Powerball lottery number generator with intelligent probability weighting, period-based decay analysis, and batch generation capabilities.
+An interactive, multilingual Powerball lottery number generator with lucky numbers weighting, decay-based probability analysis, and batch generation capabilities.
 
-**🌟 Demo:** http://localhost:5001  
+**🌟 Quick Start:** 
+```bash
+source app_venv/bin/activate  # or venv\Scripts\activate on Windows
+python3 app.py
+# Then visit http://localhost:5001
+```
+
 **📊 Data-Driven:** 1,967+ historical Powerball draws (2010-2026)  
 **🌍 Multilingual:** English • Español • Português • Français • 中文  
-**⚡ Smart Algorithm:** Decay-based probability weighting with adjustable intensity  
+**⚡ Smart Algorithms:** 
+- Decay-based probability weighting with adjustable intensity
+- Lucky numbers custom weighting (0.5x - 2.5x multipliers)
 
 ---
 
-## ✨ What is LuckyWeaver?
+## ✨ What is Powerball-LuckyWeaver?
 
-LuckyWeaver is an intelligent number generation tool that uses statistical analysis and probability weighting to suggest Powerball number combinations. It's not a prediction tool (lottery is random!), but rather a **fun exploration of probability patterns** based on historical data.
+Powerball-LuckyWeaver is an intelligent number generation tool that combines two powerful features:
+1. **Decay Weighting:** Reduces probability of recently drawn numbers
+2. **Lucky Numbers:** Select your own lucky numbers and assign custom weights
+
+It's not a prediction tool (lottery is random!), but rather a **fun exploration of probability patterns** based on historical data and your personal preferences.
 
 ### Key Features
+
+✨ **Lucky Numbers Weighting**
+- Select your own lucky numbers (1-69 for white, 1-26 for red)
+- Assign custom weight multipliers (0.5x - 2.5x)
+- Combine with decay weighting for powerful customization
+- Weights persist in browser storage
 
 🎲 **Smart Generation**
 - Decay-based weighting: Recent numbers have higher probability reduction
@@ -56,9 +74,13 @@ Open browser → **http://localhost:5001** ✨
 
 ## 🎯 How It Works
 
-### The Decay Algorithm
+### Two-Layer Weighting System
 
-Instead of purely random selection, LuckyWeaver applies intelligent probability weighting:
+Powerball-LuckyWeaver combines two algorithms for maximum customization:
+
+**1. Decay Algorithm** (Always Active)
+
+Instead of purely random selection, applies intelligent probability weighting:
 
 **Example:** With 60% decay strength
 - **Period 5** (most recent) → 100% weight reduction
@@ -69,6 +91,18 @@ Instead of purely random selection, LuckyWeaver applies intelligent probability 
 
 This creates a **gradual probability curve** rather than hard avoidance, resulting in more natural number distributions.
 
+**2. Lucky Numbers Algorithm** (Optional)
+
+Layer custom weights on top of decay weighting:
+
+- **Select lucky numbers** from 1-69 (white) and 1-26 (red)
+- **Assign multipliers**: 0.5x (less likely) to 2.5x (more likely)
+- **Control strength**: Global multiplier (0-2.0x) affects how much lucky weights influence results
+
+**Example:** If you set lucky number 7 to 1.5x with strength 1.0x:
+- Without decay: 7 has 1.5× normal probability
+- Combined with decay: Effect compounds for sophisticated weighting
+
 ---
 
 ## 📚 Documentation
@@ -77,6 +111,7 @@ This creates a **gradual probability curve** rather than hard avoidance, resulti
 |----------|---------|
 | **[QUICKSTART.md](QUICKSTART.md)** | 30-second setup guide with examples |
 | **[FEATURES.md](FEATURES.md)** | Complete feature breakdown & API docs |
+| **[STEERING_LUCKY_WEIGHTS.md](STEERING_LUCKY_WEIGHTS.md)** | Lucky numbers feature design & roadmap |
 | **[DATA_UPDATE.md](DATA_UPDATE.md)** | Keep data current with latest draws |
 | **[DATA_SOURCES.md](DATA_SOURCES.md)** | How to fetch & update Powerball data |
 
