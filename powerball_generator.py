@@ -29,12 +29,18 @@ class PowerballGenerator:
 
         return period_data
 
-    def generate_numbers(self, weight_strength=0.6, periods=5, count=1):
+    def generate_numbers(self, weight_strength=0.6, periods=5, count=1, lucky_config=None):
         """
         生成建议号码
         weight_strength: 0-1, 降权强度 (0=不降权, 1=完全避免)
         periods: 考虑最近多少期
         count: 生成多少组号码
+        lucky_config: {
+            "enabled": bool,
+            "white_balls": {"7": 1.5, "13": 1.5},  # 号码: 权重倍数
+            "red_ball": {"7": 2.0},                  # 可选的红球
+            "strength": 1.0                          # 0-2, 加权强度
+        }
         """
         period_data = self.get_recent_numbers_with_periods(periods)
 
@@ -51,6 +57,30 @@ class PowerballGenerator:
                 white_weight_dict[num] *= (1.0 - decay)
 
             red_weight_dict[data['red']] *= (1.0 - decay)
+
+        # 应用幸运数字权重（如果启用）
+        lucky_white_used = []
+        lucky_red_used = None
+
+        if lucky_config and lucky_config.get('enabled', False):
+            lucky_strength = lucky_config.get('strength', 1.0)
+
+            # 应用幸运白球权重
+            if 'white_balls' in lucky_config and lucky_config['white_balls']:
+                for num_str, weight in lucky_config['white_balls'].items():
+                    num = int(num_str)
+                    if num in white_weight_dict:
+                        # 基于幸运权重倍数调整
+                        white_weight_dict[num] *= (1 + (weight - 1.0) * lucky_strength)
+                        lucky_white_used.append(num)
+
+            # 应用幸运红球权重
+            if 'red_ball' in lucky_config and lucky_config['red_ball']:
+                for num_str, weight in lucky_config['red_ball'].items():
+                    num = int(num_str)
+                    if num in red_weight_dict:
+                        red_weight_dict[num] *= (1 + (weight - 1.0) * lucky_strength)
+                        lucky_red_used = num
 
         # 转换为数组并标准化
         white_weights = np.array([white_weight_dict[num] for num in self.white_balls])
@@ -84,7 +114,12 @@ class PowerballGenerator:
             'numbers': results,
             'recent_numbers': period_data,
             'recent_white': sorted(set(recent_white)),
-            'recent_red': sorted(set(recent_red))
+            'recent_red': sorted(set(recent_red)),
+            'lucky_analysis': {
+                'white_used': sorted(lucky_white_used),
+                'red_used': lucky_red_used,
+                'enabled': lucky_config.get('enabled', False) if lucky_config else False
+            }
         }
 
     def get_latest_drawing(self):

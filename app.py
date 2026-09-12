@@ -15,8 +15,14 @@ def generate():
     weight_strength = data.get('weight_strength', 0.6)
     periods = data.get('periods', 5)
     count = data.get('count', 1)
+    lucky_config = data.get('lucky_numbers', None)
 
-    result = gen.generate_numbers(weight_strength=weight_strength, periods=periods, count=count)
+    result = gen.generate_numbers(
+        weight_strength=weight_strength,
+        periods=periods,
+        count=count,
+        lucky_config=lucky_config
+    )
     return jsonify(result)
 
 @app.route('/api/latest', methods=['GET'])

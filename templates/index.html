@@ -527,6 +527,73 @@
                     </p>
                 </div>
 
+                <!-- Lucky Numbers Section -->
+                <div class="control-group" style="border: 2px solid #f0f0f0; border-radius: 8px; padding: 15px; background: #fafafa;">
+                    <label class="control-label" style="cursor: pointer;">
+                        <input type="checkbox" id="luckyToggle" style="margin-right: 8px; cursor: pointer;">
+                        <span lang="en">✨ Enable Lucky Numbers</span>
+                        <span lang="es" style="display:none;">✨ Habilitar Números de la Suerte</span>
+                        <span lang="pt" style="display:none;">✨ Ativar Números da Sorte</span>
+                        <span lang="fr" style="display:none;">✨ Activer Nombres Chanceux</span>
+                        <span lang="zh" style="display:none;">✨ 启用幸运数字</span>
+                    </label>
+
+                    <div id="luckyPanel" style="display: none; margin-top: 12px;">
+                        <!-- White Balls -->
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; font-size: 13px; color: #666; margin-bottom: 8px; font-weight: 500;">
+                                <span lang="en">White Balls (1-69)</span>
+                                <span lang="es" style="display:none;">Bolas Blancas (1-69)</span>
+                                <span lang="pt" style="display:none;">Bolas Brancas (1-69)</span>
+                                <span lang="fr" style="display:none;">Boules Blanches (1-69)</span>
+                                <span lang="zh" style="display:none;">白球 (1-69)</span>
+                            </label>
+                            <div id="luckyWhiteBalls" style="background: white; border-radius: 6px; padding: 10px; border: 1px solid #e0e0e0;">
+                            </div>
+                            <button class="btn-secondary" style="width: 100%; margin-top: 8px; padding: 8px; font-size: 13px;" onclick="addLuckyWhiteBall()">
+                                <span lang="en">+ Add Lucky Number</span>
+                                <span lang="es" style="display:none;">+ Agregar Número</span>
+                                <span lang="pt" style="display:none;">+ Adicionar Número</span>
+                                <span lang="fr" style="display:none;">+ Ajouter Nombre</span>
+                                <span lang="zh" style="display:none;">+ 添加幸运数</span>
+                            </button>
+                        </div>
+
+                        <!-- Red Ball -->
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; font-size: 13px; color: #666; margin-bottom: 8px; font-weight: 500;">
+                                <span lang="en">Red Ball (1-26) - Optional</span>
+                                <span lang="es" style="display:none;">Bola Roja (1-26) - Opcional</span>
+                                <span lang="pt" style="display:none;">Bola Vermelha (1-26) - Opcional</span>
+                                <span lang="fr" style="display:none;">Boule Rouge (1-26) - Optionnel</span>
+                                <span lang="zh" style="display:none;">红球 (1-26) - 可选</span>
+                            </label>
+                            <div id="luckyRedBall" style="background: white; border-radius: 6px; padding: 10px; border: 1px solid #e0e0e0;">
+                            </div>
+                        </div>
+
+                        <!-- Strength Slider -->
+                        <div style="margin-bottom: 12px;">
+                            <div class="control-label">
+                                <span lang="en">Lucky Weight Strength</span>
+                                <span lang="es" style="display:none;">Fuerza de Números de la Suerte</span>
+                                <span lang="pt" style="display:none;">Força do Número da Sorte</span>
+                                <span lang="fr" style="display:none;">Force des Nombres Chanceux</span>
+                                <span lang="zh" style="display:none;">幸运数字强度</span>
+                                <span id="luckyStrengthValue">1.0x</span>
+                            </div>
+                            <input type="range" id="luckyStrengthSlider" class="slider" min="0" max="200" value="100" step="10">
+                            <p style="font-size: 12px; color: #999; margin-top: 8px;">
+                                <span lang="en">0.5x = subtle | 1.0x = normal | 2.0x = strong</span>
+                                <span lang="es" style="display:none;">0.5x = sutil | 1.0x = normal | 2.0x = fuerte</span>
+                                <span lang="pt" style="display:none;">0.5x = sutil | 1.0x = normal | 2.0x = forte</span>
+                                <span lang="fr" style="display:none;">0.5x = subtil | 1.0x = normal | 2.0x = fort</span>
+                                <span lang="zh" style="display:none;">0.5x = 轻微 | 1.0x = 正常 | 2.0x = 强烈</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="control-group">
                     <label class="control-label">
                         <span lang="en">Generate Sets</span>
@@ -752,6 +819,176 @@
             document.getElementById('strengthValue').textContent = this.value + '%';
         });
 
+        // Lucky Numbers Feature
+        const luckyToggle = document.getElementById('luckyToggle');
+        const luckyPanel = document.getElementById('luckyPanel');
+        const luckyStrengthSlider = document.getElementById('luckyStrengthSlider');
+
+        luckyToggle.addEventListener('change', function() {
+            luckyPanel.style.display = this.checked ? 'block' : 'none';
+            if (this.checked) {
+                renderLuckyBalls();
+            }
+        });
+
+        luckyStrengthSlider.addEventListener('input', function() {
+            const value = (this.value / 100).toFixed(1) + 'x';
+            document.getElementById('luckyStrengthValue').textContent = value;
+        });
+
+        function renderLuckyBalls() {
+            const whiteBalls = getLuckyWhiteBalls();
+            const redBall = getLuckyRedBall();
+
+            // Render white balls
+            const whiteContainer = document.getElementById('luckyWhiteBalls');
+            if (whiteBalls.length === 0) {
+                whiteContainer.innerHTML = '<div style="color: #999; font-size: 13px; padding: 8px;"><span lang="en">No lucky numbers selected yet</span><span lang="zh" style="display:none;">还未选择幸运数</span></div>';
+            } else {
+                whiteContainer.innerHTML = whiteBalls.map((ball, idx) => `
+                    <div style="display: grid; grid-template-columns: 80px 1fr 60px; gap: 8px; align-items: center; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #f0f0f0;">
+                        <input type="number" min="1" max="69" value="${ball.num}" onchange="updateLuckyBall('white', ${idx}, this.value)" style="padding: 6px; border: 1px solid #ddd; border-radius: 4px; font-size: 12px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <input type="range" min="50" max="200" value="${ball.weight * 100}" onchange="updateLuckyWeight('white', ${idx}, this.value)" style="flex: 1; height: 4px;">
+                            <span style="font-size: 12px; color: #666; min-width: 35px;">${(ball.weight).toFixed(1)}x</span>
+                        </div>
+                        <button style="background: #fee; color: #f66; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; padding: 4px 8px;" onclick="removeLuckyBall('white', ${idx})">Remove</button>
+                    </div>
+                `).join('');
+            }
+
+            // Render red ball
+            const redContainer = document.getElementById('luckyRedBall');
+            if (!redBall) {
+                redContainer.innerHTML = `
+                    <div style="display: grid; grid-template-columns: 80px 1fr 60px; gap: 8px; align-items: center;">
+                        <input type="number" id="luckyRedBallInput" min="1" max="26" placeholder="1-26" style="padding: 6px; border: 1px solid #ddd; border-radius: 4px; font-size: 12px;">
+                        <div style="color: #999; font-size: 12px;"><span lang="en">Enter red ball number</span><span lang="zh" style="display:none;">输入红球号码</span></div>
+                        <button class="btn-secondary" style="padding: 4px 8px; font-size: 12px;" onclick="addLuckyRedBall()"><span lang="en">Add</span><span lang="zh" style="display:none;">添加</span></button>
+                    </div>
+                `;
+            } else {
+                redContainer.innerHTML = `
+                    <div style="display: grid; grid-template-columns: 80px 1fr 60px; gap: 8px; align-items: center;">
+                        <input type="number" min="1" max="26" value="${redBall.num}" onchange="updateLuckyBall('red', 0, this.value)" style="padding: 6px; border: 1px solid #ddd; border-radius: 4px; font-size: 12px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <input type="range" min="50" max="250" value="${redBall.weight * 100}" onchange="updateLuckyWeight('red', 0, this.value)" style="flex: 1; height: 4px;">
+                            <span style="font-size: 12px; color: #666; min-width: 35px;">${(redBall.weight).toFixed(1)}x</span>
+                        </div>
+                        <button style="background: #fee; color: #f66; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; padding: 4px 8px;" onclick="removeLuckyBall('red', 0)">Remove</button>
+                    </div>
+                `;
+            }
+        }
+
+        function getLuckyWhiteBalls() {
+            const stored = localStorage.getItem('luckyWhiteBalls');
+            return stored ? JSON.parse(stored) : [];
+        }
+
+        function getLuckyRedBall() {
+            const stored = localStorage.getItem('luckyRedBall');
+            return stored ? JSON.parse(stored) : null;
+        }
+
+        function addLuckyWhiteBall() {
+            const balls = getLuckyWhiteBalls();
+            if (balls.length >= 20) {
+                alert('Maximum 20 lucky numbers allowed');
+                return;
+            }
+            balls.push({ num: 7, weight: 1.5 });
+            localStorage.setItem('luckyWhiteBalls', JSON.stringify(balls));
+            renderLuckyBalls();
+        }
+
+        function addLuckyRedBall() {
+            const input = document.getElementById('luckyRedBallInput');
+            const num = parseInt(input.value);
+            if (isNaN(num) || num < 1 || num > 26) {
+                alert('Please enter a number between 1 and 26');
+                return;
+            }
+            localStorage.setItem('luckyRedBall', JSON.stringify({ num: num, weight: 2.0 }));
+            renderLuckyBalls();
+        }
+
+        function updateLuckyBall(type, idx, value) {
+            const num = parseInt(value);
+            const max = type === 'white' ? 69 : 26;
+            if (isNaN(num) || num < 1 || num > max) {
+                alert(`Please enter a number between 1 and ${max}`);
+                return;
+            }
+
+            if (type === 'white') {
+                const balls = getLuckyWhiteBalls();
+                balls[idx].num = num;
+                localStorage.setItem('luckyWhiteBalls', JSON.stringify(balls));
+            } else {
+                const ball = getLuckyRedBall();
+                if (ball) {
+                    ball.num = num;
+                    localStorage.setItem('luckyRedBall', JSON.stringify(ball));
+                }
+            }
+            renderLuckyBalls();
+        }
+
+        function updateLuckyWeight(type, idx, value) {
+            const weight = Math.max(0.5, Math.min(2.5, parseFloat(value) / 100));
+
+            if (type === 'white') {
+                const balls = getLuckyWhiteBalls();
+                balls[idx].weight = weight;
+                localStorage.setItem('luckyWhiteBalls', JSON.stringify(balls));
+            } else {
+                const ball = getLuckyRedBall();
+                if (ball) {
+                    ball.weight = Math.min(2.5, weight);
+                    localStorage.setItem('luckyRedBall', JSON.stringify(ball));
+                }
+            }
+            renderLuckyBalls();
+        }
+
+        function removeLuckyBall(type, idx) {
+            if (type === 'white') {
+                const balls = getLuckyWhiteBalls();
+                balls.splice(idx, 1);
+                localStorage.setItem('luckyWhiteBalls', JSON.stringify(balls));
+            } else {
+                localStorage.removeItem('luckyRedBall');
+            }
+            renderLuckyBalls();
+        }
+
+        function getLuckyConfig() {
+            if (!luckyToggle.checked) {
+                return null;
+            }
+
+            const whiteBalls = getLuckyWhiteBalls();
+            const redBall = getLuckyRedBall();
+            const strength = parseFloat(luckyStrengthSlider.value) / 100;
+
+            const config = {
+                enabled: true,
+                white_balls: {},
+                strength: strength
+            };
+
+            whiteBalls.forEach(ball => {
+                config.white_balls[ball.num.toString()] = ball.weight;
+            });
+
+            if (redBall) {
+                config.red_ball = { [redBall.num.toString()]: redBall.weight };
+            }
+
+            return Object.keys(config.white_balls).length > 0 || redBall ? config : null;
+        }
+
         async function loadLatestDrawing() {
             try {
                 const response = await fetch('/api/latest');
@@ -780,6 +1017,7 @@
         async function generateNumbers() {
             const strength = document.getElementById('strengthSlider').value / 100;
             const count = parseInt(document.getElementById('countInput').value) || 5;
+            const luckyConfig = getLuckyConfig();
             const resultsSection = document.getElementById('resultsSection');
             const loading = document.getElementById('loading');
             const resultContent = document.getElementById('resultContent');
@@ -789,10 +1027,20 @@
             resultContent.style.display = 'none';
 
             try {
+                const payload = {
+                    weight_strength: strength,
+                    periods: 5,
+                    count: count
+                };
+
+                if (luckyConfig) {
+                    payload.lucky_numbers = luckyConfig;
+                }
+
                 const response = await fetch('/api/generate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ weight_strength: strength, periods: 5, count: count })
+                    body: JSON.stringify(payload)
                 });
 
                 const data = await response.json();
@@ -830,6 +1078,25 @@
             document.getElementById('recentRedDisplay').innerHTML = data.recent_red.map(num =>
                 `<div class="mini-ball red">${num}</div>`
             ).join('');
+
+            // Display lucky numbers analysis if available
+            if (data.lucky_analysis && data.lucky_analysis.enabled) {
+                const luckyInfo = document.getElementById('recentRedDisplay').parentElement.parentElement;
+                const analysisHtml = `
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
+                        <strong style="display: block;"><span lang="en">✨ Lucky Numbers Used:</span><span lang="zh" style="display:none;">✨ 使用的幸运数字：</span></strong>
+                        <div style="margin-top: 8px;">
+                            ${data.lucky_analysis.white_used.length > 0 ?
+                                `<div><span lang="en">White:</span><span lang="zh" style="display:none;">白球：</span> ${data.lucky_analysis.white_used.map(n => `<span class="mini-ball white">${n}</span>`).join('')}</div>`
+                                : `<div style="color: #999;"><span lang="en">White: None</span><span lang="zh" style="display:none;">白球：无</span></div>`}
+                            ${data.lucky_analysis.red_used ?
+                                `<div style="margin-top: 5px;"><span lang="en">Red:</span><span lang="zh" style="display:none;">红球：</span> <span class="mini-ball red">${data.lucky_analysis.red_used}</span></div>`
+                                : `<div style="color: #999; margin-top: 5px;"><span lang="en">Red: None</span><span lang="zh" style="display:none;">红球：无</span></div>`}
+                        </div>
+                    </div>
+                `;
+                luckyInfo.innerHTML += analysisHtml;
+            }
         }
 
         function updatePeriodTable(recentNumbers) {
